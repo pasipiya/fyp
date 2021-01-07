@@ -25,13 +25,15 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
     public function index()
     {
-        return view('home');
+        //return view('dashboard.master');
+        return view('dashboard.master');
     }
 
     public function testMongo()
-    {   
+    {
         $userID=Auth::user()->id;
         $name=Auth::user()->name;
         echo $name;
@@ -48,12 +50,22 @@ class HomeController extends Controller
         //return view('testMongo');
     }
 
+    public function apiTest()
+    {
+
+        return User::all();
+    }
+
     public function store(Request $request)
     {
         $data = $request->all();
         #create or update your data here
 
         return response()->json(['success'=>'Ajax request submitted successfully']);
+    }
+    public function logout(){
+        auth()->logout();
+        return redirect('/');
     }
 
 }
