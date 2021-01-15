@@ -52,7 +52,8 @@ Route::get('/delete_vehicle/{id}', 'VehicleController@destroy');
 //Get Vehicle Data
 Route::get('/get_vehicle_data', 'VehicleDataAcquisitionController@index');
 
-
+//Get Vehicle Data
+Route::get('/get_user_data', 'HomeController@getUserData');
 
 
 

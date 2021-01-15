@@ -230,6 +230,7 @@
 export default {
   data() {
     return {
+        userData:[],
         icon: this.getSiteIcon(3),
         vehicleData:[],
       info_marker: null,
@@ -271,13 +272,21 @@ export default {
     };
   },
   methods: {
+      getUser(){
+        let uri = "get_user_data";
+        axios.get(uri).then((response) => {
+          this.userData = response.data;
+          console.log(this.userData);
+          //return this.vehicleData;
+        });
+      },
     loadVehicleData() {
         let uri = "get_vehicle_data";
         axios.get(uri).then((response) => {
           this.vehicleData = response.data;
           console.log(this.vehicleData);
           //return this.vehicleData;
-          this.vehicleData = response.data;
+          //this.vehicleData = response.data;
         });
     //       for (let i = 0; i < this.vehicleData.length; i++) {
     //     markers.push({
@@ -351,9 +360,10 @@ export default {
   },
 
   created() {
+    this.getUser()
     this.getMarkers()
     this.loadVehicleData()
-    setInterval(() => this.loadVehicleData(), 1000);
+    setInterval(() => this.loadVehicleData(),1000);
     this.window_open = true;
     paths: this.polygon;
     //this.preloader();

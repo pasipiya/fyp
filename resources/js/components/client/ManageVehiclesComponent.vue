@@ -53,6 +53,7 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
+                                             <th>Vehicle ID</th>
                                             <th>Vehicle Manufacture</th>
                                             <th>Vehicle Engine Type</th>
                                             <th>Vehicle Model</th>
@@ -77,6 +78,7 @@
                                             :key="index"
                                         >
                                             <td>{{ index + 1 }}</td>
+                                            <td>{{ vehicle._id.$oid}}</td>
                                             <td>
                                                 {{
                                                     vehicle.vehicle_manufacture

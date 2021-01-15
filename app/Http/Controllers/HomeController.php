@@ -67,5 +67,8 @@ class HomeController extends Controller
         auth()->logout();
         return redirect('/');
     }
+    public function getUserData(){
+        return $userData = Auth::user()->_id;
+    }
 
 }

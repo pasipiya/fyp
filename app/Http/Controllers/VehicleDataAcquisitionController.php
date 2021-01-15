@@ -21,7 +21,8 @@ class VehicleDataAcquisitionController extends Controller
     public function index()
 
     {
-        $company_id="1111";
+        $company_id=Auth::user()->_id;
+
 
         //return $vehicleData = DB::table('vehicle_data_acquisitions')->where('company_id', '=',$company_id)->groupBy('vehicle_id')->orderBy('_id', 'DESC')->get();
         return $vehicleData = DB::table('vehicle_data_acquisitions')->where('company_id', '=',$company_id)->orderBy('_id', 'DESC')->get()->unique('vehicle_id');

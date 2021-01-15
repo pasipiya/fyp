@@ -2143,6 +2143,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _ref2;
 
     return _ref2 = {
+      userData: [],
       icon: this.getSiteIcon(3),
       vehicleData: [],
       info_marker: null,
@@ -2182,15 +2183,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }]), _ref2;
   },
   methods: {
-    loadVehicleData: function loadVehicleData() {
+    getUser: function getUser() {
       var _this = this;
+
+      var uri = "get_user_data";
+      axios.get(uri).then(function (response) {
+        _this.userData = response.data;
+        console.log(_this.userData); //return this.vehicleData;
+      });
+    },
+    loadVehicleData: function loadVehicleData() {
+      var _this2 = this;
 
       var uri = "get_vehicle_data";
       axios.get(uri).then(function (response) {
-        _this.vehicleData = response.data;
-        console.log(_this.vehicleData); //return this.vehicleData;
-
-        _this.vehicleData = response.data;
+        _this2.vehicleData = response.data;
+        console.log(_this2.vehicleData); //return this.vehicleData;
+        //this.vehicleData = response.data;
       }); //       for (let i = 0; i < this.vehicleData.length; i++) {
       //     markers.push({
       //       position: tempLatLong[i],
@@ -2285,12 +2294,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
   },
   created: function created() {
-    var _this2 = this;
+    var _this3 = this;
 
+    this.getUser();
     this.getMarkers();
     this.loadVehicleData();
     setInterval(function () {
-      return _this2.loadVehicleData();
+      return _this3.loadVehicleData();
     }, 1000);
     this.window_open = true;
 
@@ -2591,6 +2601,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -66723,6 +66735,8 @@ var render = function() {
                             return _c("tr", { key: index }, [
                               _c("td", [_vm._v(_vm._s(index + 1))]),
                               _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(vehicle._id.$oid))]),
+                              _vm._v(" "),
                               _c("td", [
                                 _vm._v(
                                   "\n                                            " +
@@ -67808,6 +67822,8 @@ var staticRenderFns = [
     return _c("thead", [
       _c("tr", [
         _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Vehicle ID")]),
         _vm._v(" "),
         _c("th", [_vm._v("Vehicle Manufacture")]),
         _vm._v(" "),
