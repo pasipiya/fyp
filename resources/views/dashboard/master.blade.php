@@ -11,6 +11,7 @@
     <title>{{ config('app.name', 'FleetMonitoringSystem') }}</title>
   <!-- General CSS Files -->
   <link rel="stylesheet" href="{{asset('admin/assets/css/app.min.css')}}">
+  <link rel="stylesheet" href="{{asset('admin/assets/bundles/summernote/summernote-bs4.css')}}">
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{asset('admin/assets/css/style.css')}}">
   <link rel="stylesheet" href="{{asset('admin/assets/css/components.css')}}">
@@ -70,6 +71,96 @@
               <span class="logo-name"></span>
             </a>
           </div>
+
+          {{-- Admin --}}
+          @if (Auth::check() && (Auth::user()->is_role == 'Super'))
+          <ul class="sidebar-menu">
+            <li class="menu-header">Main</li>
+                <li>
+                    <router-link to="/AdminDashboard" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                       <span> Dashboard</span>
+                    </router-link>
+                </li>
+
+                <!--Company-->
+                  <li class="dropdown">
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-cogs"></i><span>Company</span></a>
+                    <ul class="dropdown-menu">
+                      <li>
+                          <router-link to="/admin_company_details" class="nav-link">
+                              Company Details
+                          </router-link>
+                      </li>
+                      <li>
+                          {{-- <router-link to="/vehicle_inspection" class="nav-link">
+                              Vehicle Inspection
+                          </router-link> --}}
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li>
+                    <router-link to="/accident_hot_spots" class="nav-link">
+                        <i class="fas fa-layer-group"></i><span>Accident Hot Spots</span>
+                    </router-link>
+                </li>
+
+
+                  <li>
+                    <router-link to="/admin_chat" class="nav-link">
+                        <i class="fas fa-user-circle"></i><span>Chat</span>
+                    </router-link>
+                </li>
+                <!--Settings-->
+                <li class="dropdown">
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-cogs"></i><span>Settings</span></a>
+                    <ul class="dropdown-menu">
+                      <li>
+                          <router-link to="/general_settings" class="nav-link">
+                              General Settings
+                          </router-link>
+                      </li>
+                      <li>
+                          {{-- <router-link to="/vehicle_inspection" class="nav-link">
+                              Vehicle Inspection
+                          </router-link> --}}
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <router-link to="/profile" class="nav-link">
+                        <i class="fas fa-user-circle"></i><span>Profile</span>
+                    </router-link>
+                </li>
+
+                  <li>
+                    <router-link to="/test_admin_view" class="nav-link">
+                        <i class="fas fa-layer-group"></i><span>Test</span>
+                    </router-link>
+                </li>
+
+
+                <li>
+                    <router-link to="/AdminDashboard" class="nav-link">
+                        <i class="fas fa-layer-group"></i><span>AdminDashboard</span>
+                    </router-link>
+                </li>
+
+        </ul>
+          @endif
+
+
+
+
+
+
+
+
+
+
+          {{-- Client --}}
+          @if (Auth::check() && (Auth::user()->is_role == 'Owner'))
           <ul class="sidebar-menu">
             <li class="menu-header">Main</li>
 
@@ -84,7 +175,7 @@
             </li> --}}
 
                 <li>
-                    <router-link to="/" class="nav-link">
+                    <router-link to="/ClientDashboard" class="nav-link">
                         <i class="fas fa-tachometer-alt"></i>
                        <span> Dashboard</span>
                     </router-link>
@@ -93,8 +184,8 @@
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Users</span></a>
                     <ul class="dropdown-menu">
                       <li>
-                          <router-link to="/drivers" class="nav-link">
-                             Drivers
+                          <router-link to="/employee" class="nav-link">
+                             Employee
                           </router-link>
                       </li>
 
@@ -128,16 +219,45 @@
                        <span> Vehicle Parameters</span>
                     </router-link>
                 </li> --}}
-                <li>
-                    <router-link to="/profile" class="nav-link">
-                        <i class="fas fa-user-circle"></i><span>Profile</span>
-                    </router-link>
-                </li>
-                <li>
-                    <router-link to="/test_admin_view" class="nav-link">
-                        <i class="fas fa-layer-group"></i><span>Test</span>
-                    </router-link>
-                </li>
+
+
+
+                <li class="dropdown">
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-car"></i><span>Track People</span></a>
+                    <ul class="dropdown-menu">
+                      <li>
+                          <router-link to="/test_admin_view" class="nav-link">
+                              Map
+                          </router-link>
+                      </li>
+                      <li>
+                          <router-link to="/test_admin_view" class="nav-link">
+                            Tracking management
+                          </router-link>
+                      </li>
+                    </ul>
+                  </li>
+
+
+
+                <li class="dropdown">
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-car"></i><span>Soft PABX</span></a>
+                    <ul class="dropdown-menu">
+                      <li>
+                          <router-link to="/PABXnumbers" class="nav-link">
+                              PABX Numbers
+                          </router-link>
+                      </li>
+                      {{-- <li>
+                          <router-link to="/vehicle_inspection" class="nav-link">
+
+                          </router-link>
+                      </li> --}}
+                    </ul>
+                  </li>
+
+
+
 
                 <!--Settings-->
                 <li class="dropdown">
@@ -155,8 +275,33 @@
                       </li>
                     </ul>
                   </li>
+                  <li>
+                    <router-link to="/profile" class="nav-link">
+                        <i class="fas fa-user-circle"></i><span>Profile</span>
+                    </router-link>
+                </li>
+
+                  <li>
+                    <router-link to="/test_admin_view" class="nav-link">
+                        <i class="fas fa-layer-group"></i><span>Test</span>
+                    </router-link>
+                </li>
+
+
+                <li>
+                    <router-link to="/AdminDashboard" class="nav-link">
+                        <i class="fas fa-layer-group"></i><span>AdminDashboard</span>
+                    </router-link>
+                </li>
 
         </ul>
+
+          @endif
+
+
+
+
+
         </aside>
       </div>
 
@@ -171,8 +316,8 @@
             <vue-progress-bar></vue-progress-bar>
         <!-- End Progress Bar -->
         <!-- Template Customizer -->
-            <template-customizer>
-            </template-customizer>
+            {{-- <template-customizer>
+            </template-customizer> --}}
         <!-- End Template Customizer -->
 
       </div>
@@ -185,7 +330,7 @@
 
       <footer class="main-footer">
         <div class="footer-left">
-          Copyright &copy; 2020 <div class="bullet"></div> Design By <a href="#">Pasindu Piyathilaka</a>
+          Copyright &copy; 2021 <div class="bullet"></div> Developed By <a href="#">iTecGenies</a>
         </div>
         <div class="footer-right">
         </div>
@@ -197,7 +342,7 @@
   <script src="{{ asset('js/app.js')}}"></script>
   <script src="{{asset('admin/assets/js/app.min.js')}}"></script>
   <!-- JS Libraies -->
-  <!-- Page Specific JS File -->
+  <script src="{{asset('admin/assets/bundles/summernote/summernote-bs4.min.js')}}"></script>
   <!-- Template JS File -->
   <script src="{{asset('admin/assets/js/scripts.js')}}"></script>
 

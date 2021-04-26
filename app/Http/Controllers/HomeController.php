@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 use App\User;
+use App\Events\LocationEvent;
 
 class HomeController extends Controller
 {
@@ -31,6 +32,20 @@ class HomeController extends Controller
         //return view('dashboard.master');
         return view('dashboard.master');
     }
+
+
+    public function pusherMap(){
+        $lat = '10';
+        $long = '20';
+        //$location="hkhk";
+        $location = ["lat"=>$lat, "long"=>$long];
+        //$user=User::find(Auth::id());
+        //event(new LocationEvent($location));
+        event(new LocationEvent($location));
+        //return response()->json(['status'=>'success', 'data'=>$location]);
+    }
+
+
 
     public function testMongo()
     {

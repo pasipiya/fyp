@@ -31,6 +31,7 @@
       <div class="container-fluid">
         <div class="row mt-5">
           <div class="col-md-12">
+
             <div class="card card-light">
               <div class="card-header">
                 <h4>Department Table</h4>
@@ -88,6 +89,7 @@
                 </table>
               </div>
             </div>
+
           </div>
         </div>
 

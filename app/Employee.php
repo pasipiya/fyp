@@ -12,17 +12,11 @@ class Employee extends Model
     protected $table = 'employee';
 
     protected $fillable = [
-        'name',
-        'code',
-        'department',
-        'join_date',
-        'address',
-        'manager',
-        'created_at',
-        'updated_at',
-        'employee_status',
+        'department_id',
+        'employee_type',
+        'employee_name',
         'company_id',
-        'emp_image',
+        'employee_status',
     ];
 
 }

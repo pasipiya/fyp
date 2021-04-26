@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Events\GetLocation;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +28,28 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 
+/*Auth*/
+// Route::middleware('isAdmin')->get('/home', function () {
+//     return redirect('/AdminDashboard');
+// });
+
+// Route::middleware('isClient')->get('/home', function () {
+//     return redirect('/ClientDashboard');
+// });
+
+Route::middleware('isAdmin')->get('/adminAuthenticated', function () {
+    return true;
+});
+Route::middleware('isClient')->get('/clientAuthenticated', function () {
+    return true;
+});
+
+
+
+/*Admin*/
+Route::get('/get_companies_admin', 'CompanyController@getCompanyAdmin')->middleware('isAdmin');
+
+
 
 
 /*Client*/
@@ -40,8 +62,17 @@ Route::get('/employee', 'EmployeeController@index');
 Route::post('/submit_employee', 'EmployeeController@submitEmployee');
 Route::get('/vehicle_type', 'VehicleController@index');
 Route::post('/submit_vehicle_type', 'VehicleController@submitVehicleType');
-Route::get('/vehicles', 'VehicleController@vehicles');
+//Route::get('/vehicles', 'VehicleController@vehicles');
 Route::post('/submit_vehicles', 'VehicleController@submitVehicles');
+
+
+/*Employees */
+Route::get('/get_employees', 'EmployeeController@index');
+Route::post('/submit_employee', 'EmployeeController@submitEmployee');
+Route::get('/delete_employee/{id}', 'EmployeeController@destroy');
+Route::get('/active_employee/{id}', 'EmployeeController@active');
+Route::get('/deactive_employee/{id}', 'EmployeeController@deactive');
+
 
 
 //Manage Vehicle
@@ -51,6 +82,7 @@ Route::get('/delete_vehicle/{id}', 'VehicleController@destroy');
 
 //Get Vehicle Data
 Route::get('/get_vehicle_data', 'VehicleDataAcquisitionController@index');
+//Route::get('/pusher_map', 'VehicleDataAcquisitionController@pusherMap');
 
 //Get Vehicle Data
 Route::get('/get_user_data', 'HomeController@getUserData');
@@ -93,16 +125,29 @@ Route::get('testmongo', 'HomeController@testMongo');
 // });
 
 //Manage Department
-Route::get('/get_departments', 'DepartmentController@getDepartments');
-Route::get('/get_vehicle_param', 'VehicleController@getVehicleParam');
+Route::get('/get_departments/{id}', 'DepartmentController@getDepartments');
 
 
 
 
+//Get per vehicle live data
+Route::get('/get_vehicle_param/{id}', 'VehicleDataAcquisitionController@getVehicleParam');
 
 
 
 
+// Route::get('/pusher_map', function (Request $request) {
+//     //$lat = $request->input('lat');
+//     //$long = $request->input('long');
+//     $lat = '10';
+//     $long = '20';
+//     $location = ["lat"=>$lat, "long"=>$long];
+//     event(new GetLocation($location));
+//     return response()->json(['status'=>'success', 'data'=>$location]);
+// });
+
+
+Route::get('/pusher_map', 'VehicleDataAcquisitionController@pusherMap');
 
 
 Route::get('/logout','HomeController@logout');

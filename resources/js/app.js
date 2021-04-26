@@ -33,6 +33,26 @@ Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 
 
+//Vue Clock
+// import VueClock from '@dangvanthanh/vue-clock';
+// Vue.use(VueClock);
+
+//Vue Clock2
+import Clock from 'vue-clock2';
+Vue.component('Clock', Clock);
+
+//Apex Chart
+// import VueApexCharts from 'vue-apexcharts'
+// Vue.component('apexchart', VueApexCharts)
+
+//HighCharts
+// import HighchartsVue from 'highcharts-vue'
+// Vue.use(HighchartsVue)
+
+
+//Google Charts
+import VueGoogleCharts from 'vue-google-charts'
+Vue.use(VueGoogleCharts)
 //Vue gauge
 // import LinearGauge from "vue-canvas-gauges/src/LinearGauge";
 // import RadialGauge from "vue-canvas-gauges/src/RadialGauge";

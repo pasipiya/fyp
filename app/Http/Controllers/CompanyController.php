@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Auth;
 use App\User;
 
+
 class CompanyController extends Controller
 {
     /**
@@ -22,6 +23,10 @@ class CompanyController extends Controller
     public function index()
     {
         return view('dashboard.client.add_company');
+    }
+
+    public function getCompanyAdmin(){
+        return $companies = DB::table('users')->where('is_role','=','Owner')->get();
     }
 
     /**

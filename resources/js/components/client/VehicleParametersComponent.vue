@@ -30,23 +30,32 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row mt-5">
-          <div class="col-md-6">
-
+          <div class="col-md-6 d-flex justify-content-center">
             <radial-gauge
               id="gaugeSpeed"
               :value="speed_data"
               :options="speedOptions"
             ></radial-gauge>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 d-flex justify-content-center">
             <radial-gauge
               id="gaugeRPM"
-              :value="speed_data"
+              :value="rpm_data"
               :options="RPMOptions"
             ></radial-gauge>
           </div>
         </div>
-
+        <div class="row">
+            <highcharts :options="chartOptions"></highcharts>
+        </div>
+        <div class="row">
+            <GChart
+      type="BubbleChart"
+      :data="chartData"
+      :options="chartOptions"
+      style="width: 900px; height: 500px;"
+    />
+        </div>
         <!-- /.row -->
       </div>
       <!--/. container-fluid -->
@@ -62,73 +71,73 @@
 <script>
 import LinearGauge from "vue-canvas-gauges/src/LinearGauge";
 import RadialGauge from "vue-canvas-gauges/src/RadialGauge";
+import { GChart } from "vue-google-charts";
 
 export default {
-  data() {
-    return {
-        sound1 : "sounds/industrial_alarm.mp3",
-        soundurl : 'http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3',
-        id: 0,
-      speed_data: 0,
-    };
-  },
   components: {
     LinearGauge,
     RadialGauge,
+    GChart,
+
     //   'radial-gauge':RadialGauge,
     //    'radial-gauge':RadialGauge,
   },
-  methods: {
-      allowNotifications(sound){
-    console.log(Notification.permission);
-   if (Notification.permission === "granted") {
-      alert("we have permission");
-        if(sound) {
-        var audio = new Audio(sound);
-        audio.play();
-      }
-   } else if (Notification.permission !== "denied") {
-      Notification.requestPermission().then(permission => {
-         console.log(permission);
-      });
-   }
-      },
+  data() {
+    return {
 
-    //    playSound(sound) {
-    //         this.allowNotifications()
-    //   if(sound) {
-    //     var audio = new Audio(sound);
-    //     audio.play();
-    //   }
-    // },
-    //            preloader() {
-    //   $(document).ready(function () {
-    //     $(".preloader").fadeOut(1000, function () {
-    //       $(".loader").remove();
-    //     });
-    //   });
-    // },
-    speed() {
-      // for (var i = 0; i < 250; i++) {
-      //     console.log(50)
-      // //console.log(Math.floor((Math.random() * 100) + 1))
-      //     //this.value=Math.floor((Math.random() * 100) + 1);
-      // //  return value
-      // //  console.log(value)
-      // }
-      let uri = "get_vehicle_param";
+      sound1: "sounds/industrial_alarm.mp3",
+      soundurl:
+        "http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3",
+      vehicle_id: 0,
+      speed_data: 0,
+      rpm_data: 0,
+      vehicleData: [],
+
+
+       chartData: [
+        ["ID", "X", "Y", "Temperature"],
+        ["", 80, 167, 120],
+        ["", 79, 136, 130],
+        ["", 78, 184, 50],
+        ["", 72, 278, 230],
+        ["", 81, 200, 210],
+        ["", 72, 170, 100],
+        ["", 68, 477, 80]
+      ],
+      chartOptions: {
+        colorAxis: { colors: ["yellow", "red"] }
+      }
+    };
+  },
+
+  methods: {
+    allowNotifications(sound) {
+      console.log(Notification.permission);
+      if (Notification.permission === "granted") {
+        alert("we have permission");
+        if (sound) {
+          var audio = new Audio(sound);
+          //audio.play();
+        }
+      } else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then((permission) => {
+          console.log(permission);
+        });
+      }
+    },
+
+    loadPerVehicleData() {
+      let uri = "get_vehicle_param/" + this.vehicle_id;
       axios.get(uri).then((response) => {
-        //this.departments = response.data;
-        console.log(response.data.speed);
-        this.speed_data = response.data.speed;
+        //console.log(response.data[0].speed);
+        this.speed_data = parseInt(response.data[0].speed);
+        this.rpm_data = parseInt(response.data[0].rpm);
+        console.log(response.data[0]);
+        //console.log(this.rpm_data)
       });
-      //console.log(Math.floor((Math.random() * 100) + 1))
-      //return Math.floor((Math.random() * 100) + 1)
-      //this.speed_data = Math.floor((Math.random() * 100) + 1)
-      //return this.value =Math.floor((Math.random() * 100) + 1)
     },
     activate() {
-      setInterval(() => this.speed(), 2000);
+      setInterval(() => this.speed(), 4000);
     },
   },
 
@@ -141,8 +150,8 @@ export default {
       type: Object,
       default: () => ({
         renderTo: "gaugeSpeed",
-        width: 400,
-        height: 400,
+        width: 350,
+        height: 350,
         units: "km/h",
         minValue: 0,
         maxValue: 220,
@@ -186,11 +195,10 @@ export default {
       type: Object,
       default: () => ({
         renderTo: "gaugeRPM",
-        width: 400,
-        height: 400,
+        width: 350,
+        height: 350,
         units: "RPM",
         title: false,
-        value: 0,
         minValue: 0,
         maxValue: 6000,
         majorTicks: [
@@ -229,23 +237,14 @@ export default {
         animationDuration: 500,
       }),
     },
+
+
   },
   created() {
-
-      this.allowNotifications(this.sound1);
-      this.id = this.$route.params.id;
-    console.log(this.id)
-    //this.preloader();
-    //this.speed()
-    //this.obj=setInterval(() => this.speed(), 2000);
-    //this.speed()
-    //this.activate()
-    //this.speed_data=20
-    //setInterval(() => this.speed(), 2000);
-    //setTimeout(() => this.speed(), 2000);
-    // Use the parent function directly here
-    //this.speed();
-    //setInterval(() => this.speed(), 2000);
+    //this.allowNotifications(this.sound1);
+    this.vehicle_id = this.$route.params.id;
+    this.loadPerVehicleData();
+    this.obj = setInterval(() => this.loadPerVehicleData(), 10000);
   },
 
   destroyed() {

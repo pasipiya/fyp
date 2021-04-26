@@ -32,96 +32,58 @@
         <div class="row mt-5">
           <div class="col-md-12">
 
-
-  <div class="card card-light">
-              <div class="card-header">
-                <h4>Department Table</h4>
-                <div class="card-header-action">
-                  <button
-                    class="btn btn-success"
-                    data-toggle="modal"
-                    data-target="#addNew"
-                    @click="openModalWindow"
-                  >
-                    Add New <i class="fas fa-user-plus fa-fw"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="card-body">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Employee Name</th>
-                      <th>Employee Type</th>
-                       <th>Mobile Number</th>
-                       <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr >
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                        <td></td>
-                          <td>     <div
-
-                        class="badge badge-success"
-                      >
-                        Activated
-                      </div>
-                      <div
-
-                        class="badge badge-danger"
-                      >
-                        Deactivated
-                      </div></td>
-                      <td>
-                        <div class="dropdown">
-                          <button
-                            class="btn btn-danger dropdown-toggle"
-                            type="button"
-                            id="dropdownMenuButton"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                          >
-                            Action
-                          </button>
-                          <div
-                            class="dropdown-menu"
-                            aria-labelledby="dropdownMenuButton"
-                          >
-                          <a href="#" class="dropdown-item has-icon"><i class="fas fa-eye"></i> View</a>
-                              <a  href="#" class="dropdown-item has-icon"><i class="fas fa-thumbs-up"></i>Active</a>
-                            <a  href="#" class="dropdown-item has-icon"><i class="fas fa-thumbs-down"></i> Deactive</a>
-                          <a href="#" class="dropdown-item has-icon"><i class="far fa-edit"></i> Edit</a>
-                            <a
-                              class="dropdown-item"
-                              href="#"
-                              >Delete
-                            </a>
-                          </div>
+            <div class="card card-light">
+             <div class="card-header">
+                    <h4>PABX Numbers</h4>
+                    <form class="card-header-form">
+                      <div class="input-group">
+                        <input type="text" name="search" class="form-control" placeholder="Search">
+                        <div class="input-group-btn">
+                          <button class="btn btn-primary btn-icon"><i class="fas fa-search"></i></button>
                         </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                      </div>
+                    </form>
+                  </div>
+              <div class="card-body">
+                  <div v-show="sub_pabx==0" class="alert alert-danger">
+                      You need to subscribe Soft PABX feature on settings
+                    </div>
+              <div v-show="sub_pabx==1" class="table-responsive">
+                      <table class="table table-sm">
+                        <thead>
+                          <tr>
+	                          <th scope="col">#</th>
+	                          <th scope="col">Employee Name</th>
+	                          <th scope="col">Employee Type</th>
+                              <th scope="col">User Name</th>
+	                          <th scope="col">PABX Number</th>
+                              <th scope="col">Secret Key</th>
+                              <th scope="col">Server Name</th>
+                            <th scope="col">Status</th>
+	                        </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                          <td>1</td>
+                          <td>name</td>
+                          <td>type</td>
+                           <td>user name</td>
+                          <td>pxbx number</td>
+                           <td>secret key</td>
+                           <td>server name</td>
+                          <td><div class="badge badge-success">Activated</div></td>
+
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
               </div>
             </div>
 
 
 
-
-
-
-
           </div>
         </div>
-
-
-
         <!-- /.row -->
       </div>
       <!--/. container-fluid -->
@@ -137,6 +99,7 @@ export default {
   //components: { preloaderComponent },
   data() {
     return {
+        sub_pabx:1,
       editMode: false,
       departments: [],
       form: new Form({

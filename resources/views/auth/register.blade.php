@@ -4,13 +4,17 @@
 <div class="row">
     <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
       <div class="login-brand login-brand-color">
-          <img alt="image" src="{{asset('admin/assets/img/logo.png')}}" />
+         <a href="{{url('/')}}">
+            <img alt="image" src="{{asset('admin/assets/img/logo.png')}}" />
+         </a>
       </div>
       <div class="card">
         <div class="card-header card-header-auth">
           <h4>Register</h4>
         </div>
         <div class="card-body">
+
+
             <form method="POST" action="{{ route('register') }}">
                 @csrf
                 <div class="row">

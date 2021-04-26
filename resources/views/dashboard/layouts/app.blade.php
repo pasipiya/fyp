@@ -6,7 +6,7 @@
       <!-- CSRF Token -->
       <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>Fleet Monitoring System</title>
+  <title>SL Fleet Tracking</title>
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <!-- General CSS Files -->

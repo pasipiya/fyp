@@ -25,25 +25,31 @@ class VehicleController extends Controller
 
     public function index()
     {
-        return $vehicles = DB::table('vehicles')->orderBy('_id', 'DESC')->get();
-        // $vehicle_type = DB::table('vehicles')->orderBy('id', 'DESC')->get();
+        $company_id=Auth::user()->_id;
+        return $vehicles = DB::table('vehicles')->where('company_id', '=',$company_id)->orderBy('_id', 'DESC')->get();
 
-        // return view('dashboard.client.add_vehicle_type')->with('vehicle_type',$vehicle_type);
     }
 
-    public function vehicles()
-    {
 
-        $vehicle_type = DB::table('vehicles')->get();
-        $vehicles = DB::table('add_vehicles')->orderBy('id', 'DESC')->get();
 
-        return view('dashboard.client.add_vehicle')->with('vehicle_type',$vehicle_type)->with('vehicles',$vehicles);
-    }
+    // public function vehicles()
+    // {
+    //     $vehicle_type = DB::table('vehicles')->get();
+    //     $vehicles = DB::table('add_vehicles')->orderBy('id', 'DESC')->get();
+    //     return view('dashboard.client.add_vehicle')->with('vehicle_type',$vehicle_type)->with('vehicles',$vehicles);
+    // }
 
     public function submitVehicle(Request $request)
     {
         try{
+            // $validator = Validator::make($request->all(), [
+            //     'vehicle_image' => 'required|image64:jpeg,jpg,png'
+            // ]);
+
+            $company_id=Auth::user()->_id;
+
             $vehicle = new Vehicle([
+                'company_id' =>$company_id,
                 'vehicle_manufacture' =>$request->get('vehicle_manufacture'),
                 'vehicle_engine_type' =>$request->get('vehicle_engine_type'),
                 'vehicle_model' =>$request->get('vehicle_model'),
@@ -58,9 +64,11 @@ class VehicleController extends Controller
                 'insurance_expiry_date' =>$request->get('insurance_expiry_date'),
                 'vehicle_obd_mac' =>$request->get('vehicle_obd_mac'),
                 'vehicle_gps_model' =>$request->get('vehicle_gps_model'),
-                'vehicle_image' =>$request->get('vehicle_image'),
+                //'vehicle_image' =>$request->get('vehicle_image'),
                 'vehicle_in_service' =>$request->get('vehicle_in_service'),
                 ]);
+
+
             $vehicle->save();
             //$request->session()->flash('success','Depatment added successfully');
 

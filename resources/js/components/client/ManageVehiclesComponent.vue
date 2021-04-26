@@ -150,7 +150,7 @@
                                                             class="dropdown-item"
                                                             href="#"
                                                             @click="
-                                                                delete_vehicle(
+                                                                view_vehicle(
                                                                     vehicle._id
                                                                         .$oid
                                                                 )
@@ -161,7 +161,7 @@
                                                             class="dropdown-item"
                                                             href="#"
                                                             @click="
-                                                                delete_vehicle(
+                                                                edit_vehicle(
                                                                     vehicle._id
                                                                         .$oid
                                                                 )
@@ -229,7 +229,7 @@
                                 </button>
                             </div>
 
-                            <form
+                            <form enctype="multipart/form-data"
                                 @submit.prevent="
                                     editMode ? updateVehicle() : createVehicle()
                                 "
@@ -526,13 +526,16 @@
                                             <div class="form-group">
                                                 <label>Vehicle Image</label>
                                                 <input
+                                                    @change="onFileChange"
                                                     type="file"
                                                     name="vehicle_image"
                                                     id="vehicle_image"
                                                     placeholder="Vehicle Image"
                                                     class="form-control"
+
                                                 />
                                             </div>
+                                            <img v-bind:src="imagePreview" width="100" height="100" v-show="showPreview"/>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -587,9 +590,9 @@
                                     >
                                         Close
                                     </button>
-                                    <button type="submit" class="btn btn-info">
+                                    <!-- <button type="submit" class="btn btn-info">
                                         Update
-                                    </button>
+                                    </button> -->
                                     <button
                                         type="submit"
                                         class="btn btn-success"
@@ -619,26 +622,51 @@ export default {
         return {
             editMode: false,
             vehicles: [],
+            imagePreview: null,
+            showPreview: false,
             form: new Form({
                 id: "",
                 vehicle_manufacture: "Choose Vehicle Manufacture",
-                vehicle_name: ""
+                vehicle_name: "",
+                vehicle_image: null,
             })
         };
     },
     methods: {
-        loadUsers() {
-            //   axios.get("/usertest").then((data) => (this.users = data.data));
-            //     console.log(users)
+        onFileChange(event){
+        this.form.vehicle_image = event.target.files[0];
+        let reader  = new FileReader();
+         reader.addEventListener("load", function () {
+        this.showPreview = true;
+        this.imagePreview = reader.result;
+    }.bind(this), false);
+     if( this.form.vehicle_image ){
+        /*
+            Ensure the file is an image file.
+        */
+        if ( /\.(jpe?g|png|gif)$/i.test( this.form.vehicle_image.name ) ) {
+
+            console.log("here");
+            /*
+            Fire the readAsDataURL method which will read the file in and
+            upon completion fire a 'load' event which we will listen to and
+            display the image in the preview.
+            */
+            reader.readAsDataURL( this.form.vehicle_image );
+        }
+    }
+},
+        loadVehicles() {
             this.$Progress.start();
             let uri = "get_vehicles";
             axios.get(uri).then(response => {
                 this.vehicles = response.data;
-                console.log(response);
+                console.log(this.vehicles);
+                // this.vehicles = response.data.filter(d => d.vehicle_year === "2014");
+                // console.log(this.vehicles);
             });
             this.$Progress.finish();
 
-            //pick data from controller and push it into users object
         },
         openModalWindow() {
             this.editMode = false;
@@ -646,6 +674,7 @@ export default {
             $("#addNew").modal("show");
         },
         createVehicle() {
+
             this.$Progress.start();
             this.form
                 .post("submit_vehicle")
@@ -659,7 +688,7 @@ export default {
                 .catch(() => {
                     console.log("Error......");
                 });
-            this.loadUsers();
+            this.loadVehicles();
         },
         delete_vehicle(id) {
             Swal.fire({
@@ -683,7 +712,7 @@ export default {
                                 "Vehicle deleted successfully",
                                 "success"
                             );
-                            this.loadUsers();
+                            this.loadVehicles();
                             console.log(response);
                         })
                         .catch(() => {
@@ -713,7 +742,8 @@ export default {
     },
 
     created() {
-        this.loadUsers();
+        this.loadVehicles();
+
         //this.preloader();
         //this.$Progress.start();
         //this.$Progress.finish();

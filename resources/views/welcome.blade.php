@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>SL Fleet Tracking</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
@@ -81,9 +81,24 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Fleet Monitoring System
+                    SL Fleet Tracking
                 </div>
 
+                <div>
+                          <!-- Alert Section -->
+       @if(session('success'))
+       <div class="alert alert-success alert-dismissible">
+         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+         {{session('success')}}
+        </div>
+        @endif
+       @if(session('delete'))
+       <div class="alert alert-danger alert-dismissible">
+         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+         {{session('delete')}}
+       </div>
+       @endif
+                </div>
 
             </div>
         </div>
