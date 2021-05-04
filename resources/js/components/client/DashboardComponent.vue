@@ -209,7 +209,7 @@
                               :key="index"
                               :to="{
                                 name: 'vehicle_parameters',
-                                params: { id: vehicle.vehicle_id },
+                                params: { id: vehicle.vehicle_id},
                               }"
                               class="nav-link"
                             >

@@ -48,8 +48,9 @@ Route::middleware('isClient')->get('/clientAuthenticated', function () {
 
 /*Admin*/
 Route::get('/get_companies_admin', 'CompanyController@getCompanyAdmin')->middleware('isAdmin');
-
-
+Route::post('/submit_accident_hot_spots', 'AccidentHotSpotsController@submit')->middleware('isAdmin');
+Route::get('/submit_accident_hot_spots', 'AccidentHotSpotsController@index')->middleware('isAdmin');
+Route::get('/get_vehicle_data_admin/{id}', 'VehicleDataAcquisitionController@getVehicleDataAdmin')->middleware('isAdmin');
 
 
 /*Client*/
@@ -64,6 +65,10 @@ Route::get('/vehicle_type', 'VehicleController@index');
 Route::post('/submit_vehicle_type', 'VehicleController@submitVehicleType');
 //Route::get('/vehicles', 'VehicleController@vehicles');
 Route::post('/submit_vehicles', 'VehicleController@submitVehicles');
+
+
+
+
 
 
 /*Employees */
@@ -132,6 +137,8 @@ Route::get('/get_departments/{id}', 'DepartmentController@getDepartments');
 
 //Get per vehicle live data
 Route::get('/get_vehicle_param/{id}', 'VehicleDataAcquisitionController@getVehicleParam');
+Route::get('/get_vehicle_chart_data/{id}', 'VehicleDataAcquisitionController@getVehicleChartParam');
+
 
 
 

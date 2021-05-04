@@ -115,16 +115,12 @@
                             :zoom="7"
                             style="width: 100%; height: 400px"
                         >
-                            <gmap-polyline
+                            <!-- <gmap-polyline
                                 v-bind:path.sync="path"
                                 v-bind:options="{ strokeColor: '#cc0000' }"
                             >
-                            </gmap-polyline>
+                            </gmap-polyline> -->
 
-                            <!-- <gmap-marker
-              :position="{lat:41.508742, lng:-1.120850}"
-              :clickable="true"
-            ></gmap-marker> -->
 
                             <gmap-marker
                                 v-for="(m, index) in vehicleData"
@@ -212,8 +208,10 @@
                                         >
                                             <div class="card-body">
                                                 <ul v-for="(company, index) in companies" :key="index">
-                                                    <li>{{company.company_name}}</li>
-                                                    <li>{{company.company_name}}</li>
+                                                    <li><a @click="showCompanyVehicles(company._id.$oid)">
+                                                        {{company.company_name}}
+                                                        </a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -229,7 +227,6 @@
                                         >
                                             <div class="card-body">
                                                   <ul v-for="(company, index) in companies" :key="index">
-                                                    <li>{{company.company_name}}</li>
                                                     <li>{{company.company_name}}</li>
                                                 </ul>
                                             </div>
@@ -265,6 +262,9 @@ export default {
   data() {
     return {
         companies:[],
+        vehicleData:[],
+        window_open: false,
+        icon: this.getSiteIcon(3),
     };
   },
   methods: {
@@ -273,9 +273,43 @@ export default {
       let uri = "get_companies_admin";
       axios.get(uri).then((response) => {
         this.companies = response.data;
-        console.log(response);
+        //console.log(response);
       });
       this.$Progress.finish();
+    },
+    showCompanyVehicles(companyId){
+        //alert(companyId)
+        let uri = "get_vehicle_data_admin/"+companyId;
+        axios.get(uri).then((response) => {
+            this.vehicleData=response.data
+            //console.log(response)
+        });
+
+    },
+     getSiteIcon(status) {
+      try {
+        switch (status) {
+          case 1:
+            return require("../assets/images/icons/car-rental.svg");
+            break;
+          case 2:
+            return require("../assets/images/icons/car.svg");
+            break;
+          case 3:
+            return require("../assets/images/icons/car-icon.png");
+            break;
+          case 4:
+            //return require("@/assets/images/icons/map-marker-lifesafety.svg");
+            break;
+          default:
+          //return require("@/assets/images/icons/map-marker-online.svg");
+        }
+      } catch (e) {
+        return null;
+      }
+    },
+     openWindow() {
+      this.window_open = true;
     },
   },
 

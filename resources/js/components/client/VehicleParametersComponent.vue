@@ -45,18 +45,30 @@
             ></radial-gauge>
           </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <highcharts :options="chartOptions"></highcharts>
-        </div>
-        <div class="row">
+        </div> -->
+        <div class="row" style="margin-top: 50px">
+          <div class="col-12 d-flex justify-content-center">
             <GChart
-      type="BubbleChart"
-      :data="chartData"
-      :options="chartOptions"
-      style="width: 900px; height: 500px;"
-    />
+              type="LineChart"
+              :data="chartDataSpeed"
+              :options="chartOptionsSpeed"
+              style="width: 800px; height: 500px"
+            />
+          </div>
         </div>
-        <!-- /.row -->
+
+        <div class="row" style="margin-top: 50px">
+          <div class="col-12 d-flex justify-content-center">
+            <GChart
+              type="LineChart"
+              :data="chartDataRPM"
+              :options="chartOptionsRPM"
+              style="width: 800px; height: 500px"
+            />
+          </div>
+        </div>
       </div>
       <!--/. container-fluid -->
     </section>
@@ -72,19 +84,21 @@
 import LinearGauge from "vue-canvas-gauges/src/LinearGauge";
 import RadialGauge from "vue-canvas-gauges/src/RadialGauge";
 import { GChart } from "vue-google-charts";
+//import { Line } from 'vue-chartjs';
 
 export default {
   components: {
     LinearGauge,
     RadialGauge,
     GChart,
+    //Line
 
     //   'radial-gauge':RadialGauge,
     //    'radial-gauge':RadialGauge,
   },
+  //props: ['chartdata', 'options'],
   data() {
     return {
-
       sound1: "sounds/industrial_alarm.mp3",
       soundurl:
         "http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3",
@@ -93,20 +107,16 @@ export default {
       rpm_data: 0,
       vehicleData: [],
 
-
-       chartData: [
-        ["ID", "X", "Y", "Temperature"],
-        ["", 80, 167, 120],
-        ["", 79, 136, 130],
-        ["", 78, 184, 50],
-        ["", 72, 278, 230],
-        ["", 81, 200, 210],
-        ["", 72, 170, 100],
-        ["", 68, 477, 80]
-      ],
-      chartOptions: {
-        colorAxis: { colors: ["yellow", "red"] }
-      }
+      chartDataSpeed: [],
+      chartDataRPM: [],
+      chartOptionsSpeed: {
+        colorAxis: { colors: ["yellow"] },
+        title: "Vehice Speed Acquisition Chart",
+      },
+      chartOptionsRPM: {
+        colorAxis: { colors: ["red"] },
+        title: "Vehice RPM Acquisition Chart",
+      },
     };
   },
 
@@ -117,7 +127,7 @@ export default {
         alert("we have permission");
         if (sound) {
           var audio = new Audio(sound);
-          //audio.play();
+          audio.play();
         }
       } else if (Notification.permission !== "denied") {
         Notification.requestPermission().then((permission) => {
@@ -128,16 +138,49 @@ export default {
 
     loadPerVehicleData() {
       let uri = "get_vehicle_param/" + this.vehicle_id;
+      //console.log(uri)
       axios.get(uri).then((response) => {
-        //console.log(response.data[0].speed);
+        //console.log(response);
+
         this.speed_data = parseInt(response.data[0].speed);
         this.rpm_data = parseInt(response.data[0].rpm);
-        console.log(response.data[0]);
+        if (this.speed_data > 30) {
+          this.allowNotifications(this.sound1);
+        }
+
+        //console.log(response.data[0]);
         //console.log(this.rpm_data)
       });
     },
+    loadPerVehicleChartData() {
+      let uri = "get_vehicle_chart_data/" + this.vehicle_id;
+
+      axios.get(uri).then((response) => {
+        this.chartDataSpeed=[]
+         this.chartDataRPM=[]
+        let lable_speed = ["Time", "Speed"];
+        this.chartDataSpeed.push(lable_speed);
+        let lable_rpm = ["Time", "RPM"];
+        this.chartDataRPM.push(lable_rpm);
+        for (var i = 0; i < response.data.length; i++) {
+          let temp_speed = [
+            response.data[i].time_send,
+            parseInt(response.data[i].speed),
+          ];
+          this.chartDataSpeed.push(temp_speed);
+          //console.log(this.chartDataSpeed)
+
+          let temp_rpm = [
+            response.data[i].time_send,
+            parseInt(response.data[i].rpm),
+          ];
+          this.chartDataRPM.push(temp_rpm);
+           //console.log(this.chartDataRPM)
+        }
+      });
+    },
     activate() {
-      setInterval(() => this.speed(), 4000);
+      setInterval(() => this.speed(), 400000);
     },
   },
 
@@ -237,18 +280,22 @@ export default {
         animationDuration: 500,
       }),
     },
-
-
   },
+  //    mounted () {
+  //     this.renderChart(this.chartdata, this.options)
+  //   },
   created() {
     //this.allowNotifications(this.sound1);
     this.vehicle_id = this.$route.params.id;
+    this.loadPerVehicleChartData();
     this.loadPerVehicleData();
-    this.obj = setInterval(() => this.loadPerVehicleData(), 10000);
+    this.obj1 = setInterval(() => this.loadPerVehicleChartData(), 2000);
+    this.obj2 = setInterval(() => this.loadPerVehicleData(), 2000);
   },
 
   destroyed() {
-    clearInterval(this.obj);
+    clearInterval(this.obj1);
+    clearInterval(this.obj2);
     console.log("Component destroyed.");
   },
 };

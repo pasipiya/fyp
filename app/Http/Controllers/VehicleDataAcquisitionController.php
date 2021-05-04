@@ -51,8 +51,18 @@ class VehicleDataAcquisitionController extends Controller
     }
 
 
+    public function getVehicleChartParam(Request $request,$id){
+        //$vehicleData = DB::table('vehicle_data_acquisitions')->where('vehicle_id', '=',$id)->orderBy('_id', 'DESC')->get()->unique('vehicle_id');
+        $vehicleChartData = DB::table('vehicle_data_acquisitions')->select('time_send','speed','rpm')->where('vehicle_id', '=',$id)->orderBy('_id', 'DESC')->take(100)->get();
+        //return response()->json($vehicleChartData);
+        return $vehicleChartData;
+    }
 
+    public function getVehicleDataAdmin($id){
+        $vehicleData = DB::table('vehicle_data_acquisitions')->where('company_id', '=',$id)->orderBy('_id', 'DESC')->get()->unique('vehicle_id');
+        return response()->json($vehicleData);
 
+    }
 
     public function pusherMap(){
         $company_id=Auth::user()->_id;

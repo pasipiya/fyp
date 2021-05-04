@@ -2026,14 +2026,104 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //import preloaderComponent from '../theme_components/preloaderComponent.vue';
 /* harmony default export */ __webpack_exports__["default"] = ({
   //components: { preloaderComponent },
   data: function data() {
-    return {};
+    return {
+      error: {},
+      import_file: "",
+      spotsData: [],
+      //icon: this.getSiteIcon(4),
+      icon: ''
+    };
   },
-  methods: {},
-  created: function created() {}
+  methods: {
+    onFileChange: function onFileChange(e) {
+      this.import_file = e.target.files[0];
+    },
+    getSpots: function getSpots() {
+      var _this = this;
+
+      var uri = "submit_accident_hot_spots";
+      axios.get(uri).then(function (response) {
+        _this.spotsData = response.data;
+        console.log(_this.spotsData);
+      });
+    },
+    proceedAction: function proceedAction() {
+      this.$Progress.start();
+      var formData = new FormData();
+      formData.append("import_file", this.import_file);
+      formData.append("test", this.test);
+      axios.post("/submit_accident_hot_spots", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      }).then(function (response) {
+        if (response.status === 200) {
+          this.$toaster.success("Accident hot spots added successfully.");
+          this.$Progress.finish(); //console.log(response);
+          // codes here after the file is upload successfully
+        } //console.log("SUCCESS!!");
+
+      })["catch"](function () {
+        console.log("FAILURE!!");
+        this.uploading = false;
+        this.error = error.response.data; //console.log("check error: ", this.error);
+      });
+    },
+    getSiteIcon: function getSiteIcon(status) {
+      try {
+        switch (status) {
+          case 1:
+            return __webpack_require__(/*! ../assets/images/icons/car-rental.svg */ "./resources/js/components/assets/images/icons/car-rental.svg");
+            break;
+
+          case 2:
+            return __webpack_require__(/*! ../assets/images/icons/car.svg */ "./resources/js/components/assets/images/icons/car.svg");
+            break;
+
+          case 3:
+            return __webpack_require__(/*! ../assets/images/icons/car-icon.png */ "./resources/js/components/assets/images/icons/car-icon.png");
+            break;
+
+          case 4:
+            //return require("../assets/images/icons/map-marker-lifesafety.svg");
+            break;
+
+          default: //return require("../assets/images/icons/map-marker-online.svg");
+
+        }
+      } catch (e) {
+        return null;
+      }
+    }
+  },
+  created: function created() {
+    this.getSpots();
+  }
 });
 
 /***/ }),
@@ -2669,15 +2759,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 //import preloaderComponent from '../theme_components/preloaderComponent.vue';
 /* harmony default export */ __webpack_exports__["default"] = ({
   //components: { preloaderComponent },
   data: function data() {
     return {
-      companies: []
+      companies: [],
+      vehicleData: [],
+      window_open: false,
+      icon: this.getSiteIcon(3)
     };
   },
   methods: {
@@ -2687,10 +2777,47 @@ __webpack_require__.r(__webpack_exports__);
       this.$Progress.start();
       var uri = "get_companies_admin";
       axios.get(uri).then(function (response) {
-        _this.companies = response.data;
-        console.log(response);
+        _this.companies = response.data; //console.log(response);
       });
       this.$Progress.finish();
+    },
+    showCompanyVehicles: function showCompanyVehicles(companyId) {
+      var _this2 = this;
+
+      //alert(companyId)
+      var uri = "get_vehicle_data_admin/" + companyId;
+      axios.get(uri).then(function (response) {
+        _this2.vehicleData = response.data; //console.log(response)
+      });
+    },
+    getSiteIcon: function getSiteIcon(status) {
+      try {
+        switch (status) {
+          case 1:
+            return __webpack_require__(/*! ../assets/images/icons/car-rental.svg */ "./resources/js/components/assets/images/icons/car-rental.svg");
+            break;
+
+          case 2:
+            return __webpack_require__(/*! ../assets/images/icons/car.svg */ "./resources/js/components/assets/images/icons/car.svg");
+            break;
+
+          case 3:
+            return __webpack_require__(/*! ../assets/images/icons/car-icon.png */ "./resources/js/components/assets/images/icons/car-icon.png");
+            break;
+
+          case 4:
+            //return require("@/assets/images/icons/map-marker-lifesafety.svg");
+            break;
+
+          default: //return require("@/assets/images/icons/map-marker-online.svg");
+
+        }
+      } catch (e) {
+        return null;
+      }
+    },
+    openWindow: function openWindow() {
+      this.window_open = true;
     }
   },
   created: function created() {
@@ -5679,17 +5806,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
+ //import { Line } from 'vue-chartjs';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     LinearGauge: vue_canvas_gauges_src_LinearGauge__WEBPACK_IMPORTED_MODULE_0__["default"],
     RadialGauge: vue_canvas_gauges_src_RadialGauge__WEBPACK_IMPORTED_MODULE_1__["default"],
-    GChart: vue_google_charts__WEBPACK_IMPORTED_MODULE_2__["GChart"] //   'radial-gauge':RadialGauge,
+    GChart: vue_google_charts__WEBPACK_IMPORTED_MODULE_2__["GChart"] //Line
+    //   'radial-gauge':RadialGauge,
     //    'radial-gauge':RadialGauge,
 
   },
+  //props: ['chartdata', 'options'],
   data: function data() {
     return {
       sound1: "sounds/industrial_alarm.mp3",
@@ -5698,11 +5840,19 @@ __webpack_require__.r(__webpack_exports__);
       speed_data: 0,
       rpm_data: 0,
       vehicleData: [],
-      chartData: [["ID", "X", "Y", "Temperature"], ["", 80, 167, 120], ["", 79, 136, 130], ["", 78, 184, 50], ["", 72, 278, 230], ["", 81, 200, 210], ["", 72, 170, 100], ["", 68, 477, 80]],
-      chartOptions: {
+      chartDataSpeed: [],
+      chartDataRPM: [],
+      chartOptionsSpeed: {
         colorAxis: {
-          colors: ["yellow", "red"]
-        }
+          colors: ["yellow"]
+        },
+        title: "Vehice Speed Acquisition Chart"
+      },
+      chartOptionsRPM: {
+        colorAxis: {
+          colors: ["red"]
+        },
+        title: "Vehice RPM Acquisition Chart"
       }
     };
   },
@@ -5714,7 +5864,8 @@ __webpack_require__.r(__webpack_exports__);
         alert("we have permission");
 
         if (sound) {
-          var audio = new Audio(sound); //audio.play();
+          var audio = new Audio(sound);
+          audio.play();
         }
       } else if (Notification.permission !== "denied") {
         Notification.requestPermission().then(function (permission) {
@@ -5725,20 +5876,54 @@ __webpack_require__.r(__webpack_exports__);
     loadPerVehicleData: function loadPerVehicleData() {
       var _this = this;
 
-      var uri = "get_vehicle_param/" + this.vehicle_id;
+      var uri = "get_vehicle_param/" + this.vehicle_id; //console.log(uri)
+
       axios.get(uri).then(function (response) {
-        //console.log(response.data[0].speed);
+        //console.log(response);
         _this.speed_data = parseInt(response.data[0].speed);
         _this.rpm_data = parseInt(response.data[0].rpm);
-        console.log(response.data[0]); //console.log(this.rpm_data)
+
+        if (_this.speed_data > 30) {
+          _this.allowNotifications(_this.sound1);
+        } //console.log(response.data[0]);
+        //console.log(this.rpm_data)
+
+      });
+    },
+    loadPerVehicleChartData: function loadPerVehicleChartData() {
+      var _this2 = this;
+
+      var uri = "get_vehicle_chart_data/" + this.vehicle_id;
+      axios.get(uri).then(function (response) {
+        _this2.chartDataSpeed = [];
+        _this2.chartDataRPM = [];
+        var lable_speed = ["Time", "Speed"];
+
+        _this2.chartDataSpeed.push(lable_speed);
+
+        var lable_rpm = ["Time", "RPM"];
+
+        _this2.chartDataRPM.push(lable_rpm);
+
+        for (var i = 0; i < response.data.length; i++) {
+          var temp_speed = [response.data[i].time_send, parseInt(response.data[i].speed)];
+
+          _this2.chartDataSpeed.push(temp_speed); //console.log(this.chartDataSpeed)
+
+
+          var temp_rpm = [response.data[i].time_send, parseInt(response.data[i].rpm)];
+
+          _this2.chartDataRPM.push(temp_rpm); //console.log(this.chartDataRPM)
+
+        }
       });
     },
     activate: function activate() {
-      var _this2 = this;
+      var _this3 = this;
 
       setInterval(function () {
-        return _this2.speed();
-      }, 4000);
+        return _this3.speed();
+      }, 400000);
     }
   },
   props: {
@@ -5843,18 +6028,26 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
+  //    mounted () {
+  //     this.renderChart(this.chartdata, this.options)
+  //   },
   created: function created() {
-    var _this3 = this;
+    var _this4 = this;
 
     //this.allowNotifications(this.sound1);
     this.vehicle_id = this.$route.params.id;
+    this.loadPerVehicleChartData();
     this.loadPerVehicleData();
-    this.obj = setInterval(function () {
-      return _this3.loadPerVehicleData();
-    }, 10000);
+    this.obj1 = setInterval(function () {
+      return _this4.loadPerVehicleChartData();
+    }, 2000);
+    this.obj2 = setInterval(function () {
+      return _this4.loadPerVehicleData();
+    }, 2000);
   },
   destroyed: function destroyed() {
-    clearInterval(this.obj);
+    clearInterval(this.obj1);
+    clearInterval(this.obj2);
     console.log("Component destroyed.");
   }
 });
@@ -74009,16 +74202,76 @@ var render = function() {
               "div",
               { staticClass: "col-md-12" },
               [
-                _c("gmap-map", {
-                  staticStyle: { width: "100%", height: "400px" },
-                  attrs: { center: { lat: 7.290871, lng: 80.296412 }, zoom: 7 }
-                })
+                _c(
+                  "gmap-map",
+                  {
+                    staticStyle: { width: "100%", height: "400px" },
+                    attrs: {
+                      center: { lat: 7.290871, lng: 80.296412 },
+                      zoom: 7
+                    }
+                  },
+                  _vm._l(_vm.spotsData, function(m, index) {
+                    return _c("gmap-marker", {
+                      key: index,
+                      attrs: {
+                        position: m.position,
+                        clickable: true,
+                        icon: _vm.icon
+                      }
+                    })
+                  }),
+                  1
+                )
               ],
               1
             )
           ]),
           _vm._v(" "),
-          _vm._m(1)
+          _c("div", { staticClass: "row mt-5" }, [
+            _c("div", { staticClass: "col-md-12" }, [
+              _c("div", { staticClass: "card" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("File")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      ref: "import_file",
+                      staticClass: "form-control",
+                      class: { " is-invalid": _vm.error.message },
+                      attrs: {
+                        required: "",
+                        type: "file",
+                        id: "input-file-import",
+                        name: "file_import"
+                      },
+                      on: { change: _vm.onFileChange }
+                    }),
+                    _vm._v(" "),
+                    _vm.error.message
+                      ? _c("div", { staticClass: "invalid-feedback" })
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success",
+                      attrs: { type: "submit" },
+                      on: {
+                        click: function($event) {
+                          return _vm.proceedAction()
+                        }
+                      }
+                    },
+                    [_vm._v("Submit")]
+                  )
+                ])
+              ])
+            ])
+          ])
         ])
       ])
     ],
@@ -74058,29 +74311,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mt-5" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _c("h4", [_vm._v("Update Accident Hot Spots")])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("File")]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control",
-                attrs: { type: "file" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("a", { staticClass: "btn btn-success", attrs: { href: "#" } }, [
-              _vm._v("Submit")
-            ])
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h4", [_vm._v("Update Accident Hot Spots")])
     ])
   }
 ]
@@ -74894,18 +75126,6 @@ var render = function() {
                         }
                       },
                       [
-                        _c("gmap-polyline", {
-                          attrs: {
-                            path: _vm.path,
-                            options: { strokeColor: "#cc0000" }
-                          },
-                          on: {
-                            "update:path": function($event) {
-                              _vm.path = $event
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
                         _vm._l(_vm.vehicleData, function(m, index) {
                           return _c("gmap-marker", {
                             key: index,
@@ -75000,11 +75220,25 @@ var render = function() {
                                   ) {
                                     return _c("ul", { key: index }, [
                                       _c("li", [
-                                        _vm._v(_vm._s(company.company_name))
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("li", [
-                                        _vm._v(_vm._s(company.company_name))
+                                        _c(
+                                          "a",
+                                          {
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.showCompanyVehicles(
+                                                  company._id.$oid
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                                                        " +
+                                                _vm._s(company.company_name) +
+                                                "\n                                                        "
+                                            )
+                                          ]
+                                        )
                                       ])
                                     ])
                                   }),
@@ -75034,10 +75268,6 @@ var render = function() {
                                     index
                                   ) {
                                     return _c("ul", { key: index }, [
-                                      _c("li", [
-                                        _vm._v(_vm._s(company.company_name))
-                                      ]),
-                                      _vm._v(" "),
                                       _c("li", [
                                         _vm._v(_vm._s(company.company_name))
                                       ])
@@ -79481,25 +79711,46 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "row" },
-            [_c("highcharts", { attrs: { options: _vm.chartOptions } })],
-            1
+            { staticClass: "row", staticStyle: { "margin-top": "50px" } },
+            [
+              _c(
+                "div",
+                { staticClass: "col-12 d-flex justify-content-center" },
+                [
+                  _c("GChart", {
+                    staticStyle: { width: "800px", height: "500px" },
+                    attrs: {
+                      type: "LineChart",
+                      data: _vm.chartDataSpeed,
+                      options: _vm.chartOptionsSpeed
+                    }
+                  })
+                ],
+                1
+              )
+            ]
           ),
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "row" },
+            { staticClass: "row", staticStyle: { "margin-top": "50px" } },
             [
-              _c("GChart", {
-                staticStyle: { width: "900px", height: "500px" },
-                attrs: {
-                  type: "BubbleChart",
-                  data: _vm.chartData,
-                  options: _vm.chartOptions
-                }
-              })
-            ],
-            1
+              _c(
+                "div",
+                { staticClass: "col-12 d-flex justify-content-center" },
+                [
+                  _c("GChart", {
+                    staticStyle: { width: "800px", height: "500px" },
+                    attrs: {
+                      type: "LineChart",
+                      data: _vm.chartDataRPM,
+                      options: _vm.chartOptionsRPM
+                    }
+                  })
+                ],
+                1
+              )
+            ]
           )
         ])
       ])

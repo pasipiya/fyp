@@ -26,7 +26,7 @@ class CompanyController extends Controller
     }
 
     public function getCompanyAdmin(){
-        return $companies = DB::table('users')->where('is_role','=','Owner')->get();
+        return $companies = DB::table('users')->where('user_type','=','Client')->get();
     }
 
     /**

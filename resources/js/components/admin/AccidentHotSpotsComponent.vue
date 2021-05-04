@@ -31,34 +31,55 @@
       <div class="container-fluid">
         <div class="row mt-5">
           <div class="col-md-12">
-               <gmap-map
+            <gmap-map
               :center="{ lat: 7.290871, lng: 80.296412 }"
               :zoom="7"
               style="width: 100%; height: 400px"
-            ></gmap-map>
+            >
+            <gmap-marker
+                v-for="(m, index) in spotsData"
+                :key="index"
+                :position="m.position"
+                :clickable="true"
+                :icon="icon"
+
+              ></gmap-marker>
+
+            </gmap-map>
           </div>
         </div>
 
         <!--Form -->
-           <div class="row mt-5">
+        <div class="row mt-5">
           <div class="col-md-12">
-                <div class="card">
-                  <div class="card-header">
-                    <h4>Update Accident Hot Spots</h4>
+            <div class="card">
+              <div class="card-header">
+                <h4>Update Accident Hot Spots</h4>
+              </div>
+              <div class="card-body">
+
+                  <div class="form-group">
+                    <label>File</label>
+                    <input
+                      required
+                      type="file"
+                      class="form-control"
+                      :class="{ ' is-invalid': error.message }"
+                      id="input-file-import"
+                      name="file_import"
+                      ref="import_file"
+                      @change="onFileChange"
+                    />
+                    <div v-if="error.message" class="invalid-feedback"></div>
                   </div>
-                  <div class="card-body">
-                   <div class="form-group">
-                      	<label>File</label>
-	                      <input type="file" class="form-control">
-	                    </div>
-                        <a href="#" class="btn btn-success">Submit</a>
-                  </div>
-                </div>
+
+
+                  <button v-on:click="proceedAction()" type="submit" class="btn btn-success">Submit</button>
+
+              </div>
+            </div>
           </div>
         </div>
-
-
-
 
         <!-- /.row -->
       </div>
@@ -75,17 +96,82 @@ export default {
   //components: { preloaderComponent },
   data() {
     return {
+      error: {},
+      import_file: "",
+      spotsData:[],
+       //icon: this.getSiteIcon(4),
+       icon:''
+
 
     };
   },
   methods: {
+    onFileChange(e) {
+      this.import_file = e.target.files[0];
+    },
 
+    getSpots(){
+         let uri = "submit_accident_hot_spots";
+        axios.get(uri).then((response) => {
+        this.spotsData = response.data;
+        console.log(this.spotsData);
+      });
+    },
 
+    proceedAction() {
+        this.$Progress.start();
+      let formData = new FormData();
+      formData.append("import_file", this.import_file);
+    formData.append("test", this.test);
+      axios
+        .post("/submit_accident_hot_spots", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then(function (response) {
+            if (response.status === 200) {
+            this.$toaster.success("Accident hot spots added successfully.");
 
+            this.$Progress.finish();
+            //console.log(response);
+            // codes here after the file is upload successfully
+          }
+          //console.log("SUCCESS!!");
+        })
+        .catch(function () {
+          console.log("FAILURE!!");
+            this.uploading = false;
+          this.error = error.response.data;
+          //console.log("check error: ", this.error);
+        });
+    },
+       getSiteIcon(status) {
+      try {
+        switch (status) {
+          case 1:
+            return require("../assets/images/icons/car-rental.svg");
+            break;
+          case 2:
+            return require("../assets/images/icons/car.svg");
+            break;
+          case 3:
+            return require("../assets/images/icons/car-icon.png");
+            break;
+          case 4:
+            //return require("../assets/images/icons/map-marker-lifesafety.svg");
+            break;
+          default:
+          //return require("../assets/images/icons/map-marker-online.svg");
+        }
+      } catch (e) {
+        return null;
+      }
+    },
   },
 
   created() {
-
+      this.getSpots()
   },
 };
 </script>
