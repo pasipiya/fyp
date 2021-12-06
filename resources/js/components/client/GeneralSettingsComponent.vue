@@ -15,7 +15,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v2</li>
+              <li class="breadcrumb-item active">General Settings</li>
             </ol>
           </div>
           <!-- /.col -->
@@ -52,6 +52,26 @@
                         <option>60 seconds</option>
                       </select>
                     </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="form-group">
+                      <label>Data Sync Frequency - Client Software</label>
+                      <select class="form-control">
+                        <option>1 seconds</option>
+                        <option>2 seconds</option>
+                        <option>5 seconds</option>
+                        <option>10 seconds</option>
+                        <option>15 seconds</option>
+                        <option>20 seconds</option>
+                        <option>30 seconds</option>
+                        <option>50 seconds</option>
+                        <option>60 seconds</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-12 col-sm-12">
                     <div class="form-group">
                       <label class="d-block">Data Acquisition</label>
                       <div class="form-check">
@@ -96,43 +116,10 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-4 col-md-12 col-sm-12">
-
-
-                    <div class="form-group">
-                      <label>Data Sync Frequency - Client Software</label>
-                      <select class="form-control">
-                        <option>1 seconds</option>
-                        <option>2 seconds</option>
-                        <option>5 seconds</option>
-                        <option>10 seconds</option>
-                        <option>15 seconds</option>
-                        <option>20 seconds</option>
-                        <option>30 seconds</option>
-                        <option>50 seconds</option>
-                        <option>60 seconds</option>
-                      </select>
-                    </div>
-
-                    <div class="form-group">
-                      <label>Security Key</label>
-                      <input type="text" class="form-control" />
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-md-12 col-sm-12">
-
-
-                    <div class="form-group">
-                      <label>Speed Limit Alert (km/h)</label>
-                      <input
-                        type="number"
-                        placeholder="100"
-                        class="form-control"
-                      />
-                    </div>
-                  </div>
                 </div>
               </div>
+
+              <div class="card-footer text-left"><button class="btn btn-primary">Save Changes</button></div>
             </div>
           </div>
         </div>

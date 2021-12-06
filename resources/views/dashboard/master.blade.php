@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="{{asset('admin/assets/bundles/summernote/summernote-bs4.css')}}">
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{asset('admin/assets/css/style.css')}}">
+  <link rel="stylesheet" href="{{asset('admin/assets/bundles/pretty-checkbox/pretty-checkbox.min.css')}}">
   <link rel="stylesheet" href="{{asset('admin/assets/css/components.css')}}">
   <!-- Custom style CSS -->
 
@@ -121,11 +122,11 @@
                               General Settings
                           </router-link>
                       </li>
-                      <li>
-                          {{-- <router-link to="/vehicle_inspection" class="nav-link">
-                              Vehicle Inspection
-                          </router-link> --}}
-                      </li>
+                      {{-- <li>
+                          <router-link to="/alert_settings" class="nav-link">
+                              Alert Settings
+                          </router-link>
+                      </li> --}}
                     </ul>
                   </li>
                   <li>
@@ -269,10 +270,10 @@
                           </router-link>
                       </li>
                       <li>
-                          {{-- <router-link to="/vehicle_inspection" class="nav-link">
-                              Vehicle Inspection
-                          </router-link> --}}
-                      </li>
+                        <router-link to="/alert_settings" class="nav-link">
+                            Alert Settings
+                        </router-link>
+                    </li>
                     </ul>
                   </li>
                   <li>

@@ -65,7 +65,7 @@ Route::get('/vehicle_type', 'VehicleController@index');
 Route::post('/submit_vehicle_type', 'VehicleController@submitVehicleType');
 //Route::get('/vehicles', 'VehicleController@vehicles');
 Route::post('/submit_vehicles', 'VehicleController@submitVehicles');
-
+//Route::get('/vehicle_map', 'VehicleController@vehicleMap');
 
 
 
@@ -84,6 +84,7 @@ Route::get('/deactive_employee/{id}', 'EmployeeController@deactive');
 Route::get('/get_vehicles', 'VehicleController@index');
 Route::post('/submit_vehicle', 'VehicleController@submitVehicle');
 Route::get('/delete_vehicle/{id}', 'VehicleController@destroy');
+Route::get('/get_vehicle_location', 'VehicleDataAcquisitionController@vehicleLocation');
 
 //Get Vehicle Data
 Route::get('/get_vehicle_data', 'VehicleDataAcquisitionController@index');

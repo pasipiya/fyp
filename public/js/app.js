@@ -3338,6 +3338,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 __webpack_require__(/*! vue-simple-calendar/static/css/default.css */ "./node_modules/vue-simple-calendar/static/css/default.css");
@@ -3539,7 +3543,7 @@ __webpack_require__(/*! vue-simple-calendar/static/css/holidays-us.css */ "./nod
     this.loadVehicleData();
     this.obj = setInterval(function () {
       return _this2.loadVehicleData();
-    }, 3000);
+    }, 10000);
     Echo.channel("location").listen("LocationEvent", function (e) {
       console.log(e);
       _this2.vehicleData = e.vehicleData;
@@ -4974,6 +4978,154 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.loadVehicles(); //this.preloader();
+    //this.$Progress.start();
+    //this.$Progress.finish();
+    //this.$toaster.success('Your toaster success message.')
+    //  Toast.fire({
+    //         icon: "success",
+    //         title: "User updated successfully",
+    //       });
+    //Swal.fire('Any fool can use a computer')
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/client/MapComponent.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/client/MapComponent.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//import preloaderComponent from '../theme_components/preloaderComponent.vue';
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      path: [],
+      icon: this.getSiteIcon(4)
+    };
+  },
+  methods: {
+    loadVehicleLocation: function loadVehicleLocation() {
+      var _this = this;
+
+      var uri = "get_vehicle_location";
+      axios.get(uri).then(function (response) {
+        //console.log(response.data)
+        for (var i = 0; i < response.data.length; i++) {
+          _this.path.push(response.data[i].position);
+        }
+
+        console.log(_this.path);
+      });
+    },
+    getSiteIcon: function getSiteIcon(status) {
+      try {
+        switch (status) {
+          case 1:
+            return __webpack_require__(/*! ../assets/images/icons/car-rental.svg */ "./resources/js/components/assets/images/icons/car-rental.svg");
+            break;
+
+          case 2:
+            return __webpack_require__(/*! ../assets/images/icons/car.svg */ "./resources/js/components/assets/images/icons/car.svg");
+            break;
+
+          case 3:
+            return __webpack_require__(/*! ../assets/images/icons/car-icon.png */ "./resources/js/components/assets/images/icons/car-icon.png");
+            break;
+
+          case 4:
+            return __webpack_require__(/*! ../assets/images/icons/icons8-red-circle-10.png */ "./resources/js/components/assets/images/icons/icons8-red-circle-10.png");
+            break;
+
+          default: //return require("@/assets/images/icons/map-marker-online.svg");
+
+        }
+      } catch (e) {
+        return null;
+      }
+    }
+  },
+  created: function created() {
+    this.loadVehicleLocation(); //this.loadUsers();
+    //this.preloader();
     //this.$Progress.start();
     //this.$Progress.finish();
     //this.$toaster.success('Your toaster success message.')
@@ -75819,6 +75971,148 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/client/AlertSettingsComponent.vue?vue&type=template&id=e25a2c72&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/client/AlertSettingsComponent.vue?vue&type=template&id=e25a2c72& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "content-wrapper" },
+    [_c("theme-preloader"), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1)],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "content-header" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "row mb-2" }, [
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c("h1", { staticClass: "m-0 text-dark" }, [
+              _vm._v("Alert Settings")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
+              _c("li", { staticClass: "breadcrumb-item" }, [
+                _c("a", { attrs: { href: "#" } }, [_vm._v("Home")])
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "breadcrumb-item active" }, [
+                _vm._v("Alert Settings")
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("section", { staticClass: "content" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-lg-12 col-md-12 col-sm-12" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-header" }, [
+                _c("h4", [_vm._v("Alert Settings")])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-lg-4 col-md-12 col-sm-12" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Speed Alert")]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "pretty p-switch p-fill" }, [
+                        _c("input", { attrs: { type: "checkbox" } }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "state p-success" }, [
+                          _c("label", [_vm._v("Speed")])
+                        ])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-lg-4 col-md-12 col-sm-12" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("RPM Alert")]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "pretty p-switch p-fill" }, [
+                        _c("input", { attrs: { type: "checkbox" } }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "state p-success" }, [
+                          _c("label", [_vm._v("RPM")])
+                        ])
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-lg-4 col-md-12 col-sm-12" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Speed Limit Alert (km/h)")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "number", placeholder: "100" }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-lg-4 col-md-12 col-sm-12" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Engine Speed Limit Alert (RPM)")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "number", placeholder: "100" }
+                      })
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-footer text-left" }, [
+                _c("button", { staticClass: "btn btn-primary" }, [
+                  _vm._v("Save Changes")
+                ])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/client/DashboardComponent.vue?vue&type=template&id=7c18991c&":
 /*!****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/client/DashboardComponent.vue?vue&type=template&id=7c18991c& ***!
@@ -75940,11 +76234,9 @@ var render = function() {
                           }
                         },
                         [
-                          _vm._v(
-                            "\n\n  Vehicle " +
-                              _vm._s(m.vehicle_id) +
-                              "\n              "
-                          ),
+                          _vm._v("\n  Vehicle : Vehicle 1\n  "),
+                          _c("br"),
+                          _vm._v("\n  Diver : Pasindu\n              "),
                           _c("br"),
                           _vm._v(
                             "\n              Speed : " +
@@ -76017,13 +76309,7 @@ var render = function() {
                                             }
                                           }
                                         },
-                                        [
-                                          _c("span", [
-                                            _vm._v(
-                                              " " + _vm._s(vehicle.vehicle_id)
-                                            )
-                                          ])
-                                        ]
+                                        [_c("span", [_vm._v(" Vehicle 1 ")])]
                                       )
                                     }),
                                     1
@@ -76090,7 +76376,9 @@ var staticRenderFns = [
       _c("div", { staticClass: "container-fluid" }, [
         _c("div", { staticClass: "row mb-2" }, [
           _c("div", { staticClass: "col-sm-6" }, [
-            _c("h1", { staticClass: "m-0 text-dark" }, [_vm._v("Dashboard v2")])
+            _c("h1", { staticClass: "m-0 text-dark" }, [
+              _vm._v("SL Fleet - Dashboard")
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-sm-6" }, [
@@ -76100,7 +76388,7 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("li", { staticClass: "breadcrumb-item active" }, [
-                _vm._v("Dashboard v2")
+                _vm._v("SL Fleet - Dashboard")
               ])
             ])
           ])
@@ -76123,10 +76411,12 @@ var staticRenderFns = [
             _c("div", { staticClass: "text-right" }, [
               _c("h3", { staticClass: "font-light mb-0" }, [
                 _c("i", { staticClass: "ti-arrow-up text-success" }),
-                _vm._v(" 10\n                  ")
+                _vm._v(" 1\n                  ")
               ]),
               _vm._v(" "),
-              _c("span", { staticClass: "text-muted" }, [_vm._v("People")])
+              _c("span", { staticClass: "text-muted" }, [
+                _vm._v("Total Vehicles")
+              ])
             ])
           ])
         ])
@@ -76148,7 +76438,7 @@ var staticRenderFns = [
             _c("div", { staticClass: "text-right" }, [
               _c("h3", { staticClass: "font-light mb-0" }, [
                 _c("i", { staticClass: "ti-arrow-up text-success" }),
-                _vm._v(" 785\n                  ")
+                _vm._v(" 1\n                  ")
               ]),
               _vm._v(" "),
               _c("span", { staticClass: "text-muted" }, [
@@ -76175,10 +76465,12 @@ var staticRenderFns = [
             _c("div", { staticClass: "text-right" }, [
               _c("h3", { staticClass: "font-light mb-0" }, [
                 _c("i", { staticClass: "ti-arrow-up text-success" }),
-                _vm._v(" 15\n                  ")
+                _vm._v(" 1\n                  ")
               ]),
               _vm._v(" "),
-              _c("span", { staticClass: "text-muted" }, [_vm._v("Drivers")])
+              _c("span", { staticClass: "text-muted" }, [
+                _vm._v("Total Drivers")
+              ])
             ])
           ])
         ])
@@ -77286,7 +77578,7 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("li", { staticClass: "breadcrumb-item active" }, [
-                _vm._v("Dashboard v2")
+                _vm._v("General Settings")
               ])
             ])
           ])
@@ -77334,8 +77626,38 @@ var staticRenderFns = [
                         _vm._v(" "),
                         _c("option", [_vm._v("60 seconds")])
                       ])
-                    ]),
-                    _vm._v(" "),
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-lg-4 col-md-12 col-sm-12" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [
+                        _vm._v("Data Sync Frequency - Client Software")
+                      ]),
+                      _vm._v(" "),
+                      _c("select", { staticClass: "form-control" }, [
+                        _c("option", [_vm._v("1 seconds")]),
+                        _vm._v(" "),
+                        _c("option", [_vm._v("2 seconds")]),
+                        _vm._v(" "),
+                        _c("option", [_vm._v("5 seconds")]),
+                        _vm._v(" "),
+                        _c("option", [_vm._v("10 seconds")]),
+                        _vm._v(" "),
+                        _c("option", [_vm._v("15 seconds")]),
+                        _vm._v(" "),
+                        _c("option", [_vm._v("20 seconds")]),
+                        _vm._v(" "),
+                        _c("option", [_vm._v("30 seconds")]),
+                        _vm._v(" "),
+                        _c("option", [_vm._v("50 seconds")]),
+                        _vm._v(" "),
+                        _c("option", [_vm._v("60 seconds")])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-lg-4 col-md-12 col-sm-12" }, [
                     _c("div", { staticClass: "form-group" }, [
                       _c("label", { staticClass: "d-block" }, [
                         _vm._v("Data Acquisition")
@@ -77421,55 +77743,13 @@ var staticRenderFns = [
                         )
                       ])
                     ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-lg-4 col-md-12 col-sm-12" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", [
-                        _vm._v("Data Sync Frequency - Client Software")
-                      ]),
-                      _vm._v(" "),
-                      _c("select", { staticClass: "form-control" }, [
-                        _c("option", [_vm._v("1 seconds")]),
-                        _vm._v(" "),
-                        _c("option", [_vm._v("2 seconds")]),
-                        _vm._v(" "),
-                        _c("option", [_vm._v("5 seconds")]),
-                        _vm._v(" "),
-                        _c("option", [_vm._v("10 seconds")]),
-                        _vm._v(" "),
-                        _c("option", [_vm._v("15 seconds")]),
-                        _vm._v(" "),
-                        _c("option", [_vm._v("20 seconds")]),
-                        _vm._v(" "),
-                        _c("option", [_vm._v("30 seconds")]),
-                        _vm._v(" "),
-                        _c("option", [_vm._v("50 seconds")]),
-                        _vm._v(" "),
-                        _c("option", [_vm._v("60 seconds")])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", [_vm._v("Security Key")]),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: { type: "text" }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-lg-4 col-md-12 col-sm-12" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", [_vm._v("Speed Limit Alert (km/h)")]),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: { type: "number", placeholder: "100" }
-                      })
-                    ])
                   ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-footer text-left" }, [
+                _c("button", { staticClass: "btn btn-primary" }, [
+                  _vm._v("Save Changes")
                 ])
               ])
             ])
@@ -78658,7 +78938,7 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("li", { staticClass: "breadcrumb-item active" }, [
-                _vm._v("Dashboard v2")
+                _vm._v("Manage Vehicles")
               ])
             ])
           ])
@@ -78754,6 +79034,117 @@ var staticRenderFns = [
           )
         ]
       )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/client/MapComponent.vue?vue&type=template&id=27abbe6a&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/client/MapComponent.vue?vue&type=template&id=27abbe6a& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "content-wrapper" },
+    [
+      _c("theme-preloader"),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c("section", { staticClass: "content" }, [
+        _c("div", { staticClass: "container-fluid" }, [
+          _c("div", { staticClass: "row mt-5" }, [
+            _c("div", { staticClass: "col-md-12" }, [
+              _c("div", { staticClass: "card card-light" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "card-body" },
+                  [
+                    _c(
+                      "gmap-map",
+                      {
+                        staticStyle: { width: "100%", height: "400px" },
+                        attrs: {
+                          center: { lat: 7.290871, lng: 80.296412 },
+                          zoom: 7
+                        }
+                      },
+                      _vm._l(_vm.path, function(m, index) {
+                        return _c("gmap-marker", {
+                          key: index,
+                          attrs: {
+                            position: m,
+                            clickable: true,
+                            icon: _vm.icon
+                          }
+                        })
+                      }),
+                      1
+                    )
+                  ],
+                  1
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "content-header" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "row mb-2" }, [
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c("h1", { staticClass: "m-0 text-dark" }, [_vm._v("Map")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
+              _c("li", { staticClass: "breadcrumb-item" }, [
+                _c("a", { attrs: { href: "#" } }, [_vm._v("Home")])
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "breadcrumb-item active" }, [
+                _vm._v("Dashboard v2")
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h4", [_vm._v("Vehicle Map")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-header-action" })
     ])
   }
 ]
@@ -103918,6 +104309,17 @@ module.exports = "/images/car.svg?e667a8879c41324a925302d58836fc2c";
 
 /***/ }),
 
+/***/ "./resources/js/components/assets/images/icons/icons8-red-circle-10.png":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/assets/images/icons/icons8-red-circle-10.png ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/icons8-red-circle-10.png?a39225d21671a38297c97bae4bc96b2e";
+
+/***/ }),
+
 /***/ "./resources/js/components/auth/unauthorizedAccessComponent.vue":
 /*!**********************************************************************!*\
   !*** ./resources/js/components/auth/unauthorizedAccessComponent.vue ***!
@@ -103982,6 +104384,59 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_unauthorizedAccessComponent_vue_vue_type_template_id_4d2bf46e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_unauthorizedAccessComponent_vue_vue_type_template_id_4d2bf46e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/client/AlertSettingsComponent.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/client/AlertSettingsComponent.vue ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AlertSettingsComponent_vue_vue_type_template_id_e25a2c72___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AlertSettingsComponent.vue?vue&type=template&id=e25a2c72& */ "./resources/js/components/client/AlertSettingsComponent.vue?vue&type=template&id=e25a2c72&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _AlertSettingsComponent_vue_vue_type_template_id_e25a2c72___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AlertSettingsComponent_vue_vue_type_template_id_e25a2c72___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/client/AlertSettingsComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/client/AlertSettingsComponent.vue?vue&type=template&id=e25a2c72&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/client/AlertSettingsComponent.vue?vue&type=template&id=e25a2c72& ***!
+  \**************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlertSettingsComponent_vue_vue_type_template_id_e25a2c72___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./AlertSettingsComponent.vue?vue&type=template&id=e25a2c72& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/client/AlertSettingsComponent.vue?vue&type=template&id=e25a2c72&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlertSettingsComponent_vue_vue_type_template_id_e25a2c72___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlertSettingsComponent_vue_vue_type_template_id_e25a2c72___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -104329,6 +104784,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ManageVehiclesComponent_vue_vue_type_template_id_e5872190___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ManageVehiclesComponent_vue_vue_type_template_id_e5872190___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/client/MapComponent.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/client/MapComponent.vue ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MapComponent_vue_vue_type_template_id_27abbe6a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MapComponent.vue?vue&type=template&id=27abbe6a& */ "./resources/js/components/client/MapComponent.vue?vue&type=template&id=27abbe6a&");
+/* harmony import */ var _MapComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MapComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/client/MapComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _MapComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MapComponent_vue_vue_type_template_id_27abbe6a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MapComponent_vue_vue_type_template_id_27abbe6a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/client/MapComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/client/MapComponent.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/client/MapComponent.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MapComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./MapComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/client/MapComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MapComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/client/MapComponent.vue?vue&type=template&id=27abbe6a&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/client/MapComponent.vue?vue&type=template&id=27abbe6a& ***!
+  \****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MapComponent_vue_vue_type_template_id_27abbe6a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./MapComponent.vue?vue&type=template&id=27abbe6a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/client/MapComponent.vue?vue&type=template&id=27abbe6a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MapComponent_vue_vue_type_template_id_27abbe6a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MapComponent_vue_vue_type_template_id_27abbe6a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -104769,13 +105293,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_client_DepartmentComponent_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/client/DepartmentComponent.vue */ "./resources/js/components/client/DepartmentComponent.vue");
 /* harmony import */ var _components_client_EmployeeComponent_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/client/EmployeeComponent.vue */ "./resources/js/components/client/EmployeeComponent.vue");
 /* harmony import */ var _components_client_VehicleParametersComponent_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/client/VehicleParametersComponent.vue */ "./resources/js/components/client/VehicleParametersComponent.vue");
-/* harmony import */ var _components_client_ManageVehiclesComponent_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/client/ManageVehiclesComponent.vue */ "./resources/js/components/client/ManageVehiclesComponent.vue");
-/* harmony import */ var _components_client_VehicleInspectionComponent_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/client/VehicleInspectionComponent.vue */ "./resources/js/components/client/VehicleInspectionComponent.vue");
-/* harmony import */ var _components_client_GeneralSettingsComponent_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/client/GeneralSettingsComponent.vue */ "./resources/js/components/client/GeneralSettingsComponent.vue");
-/* harmony import */ var _components_client_ProfileComponent_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/client/ProfileComponent.vue */ "./resources/js/components/client/ProfileComponent.vue");
-/* harmony import */ var _components_client_PABXNumbersComponent_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/client/PABXNumbersComponent.vue */ "./resources/js/components/client/PABXNumbersComponent.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var _components_client_MapComponent_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/client/MapComponent.vue */ "./resources/js/components/client/MapComponent.vue");
+/* harmony import */ var _components_client_ManageVehiclesComponent_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/client/ManageVehiclesComponent.vue */ "./resources/js/components/client/ManageVehiclesComponent.vue");
+/* harmony import */ var _components_client_VehicleInspectionComponent_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/client/VehicleInspectionComponent.vue */ "./resources/js/components/client/VehicleInspectionComponent.vue");
+/* harmony import */ var _components_client_GeneralSettingsComponent_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/client/GeneralSettingsComponent.vue */ "./resources/js/components/client/GeneralSettingsComponent.vue");
+/* harmony import */ var _components_client_ProfileComponent_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/client/ProfileComponent.vue */ "./resources/js/components/client/ProfileComponent.vue");
+/* harmony import */ var _components_client_AlertSettingsComponent_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/client/AlertSettingsComponent.vue */ "./resources/js/components/client/AlertSettingsComponent.vue");
+/* harmony import */ var _components_client_PABXNumbersComponent_vue__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/client/PABXNumbersComponent.vue */ "./resources/js/components/client/PABXNumbersComponent.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_17__);
  //Admin
 
 
@@ -104784,6 +105310,8 @@ __webpack_require__.r(__webpack_exports__);
  //unauthorizedAccess
 
  //Client
+
+
 
 
 
@@ -104805,7 +105333,7 @@ var routes = [//Auth
 }, {
   path: '/',
   beforeEnter: function beforeEnter(to, from, next) {
-    axios__WEBPACK_IMPORTED_MODULE_15___default.a.get('adminAuthenticated').then(function () {
+    axios__WEBPACK_IMPORTED_MODULE_17___default.a.get('adminAuthenticated').then(function () {
       return next({
         name: 'AdminDashboard'
       });
@@ -104821,7 +105349,7 @@ var routes = [//Auth
   component: _components_admin_AdminDashboardComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
   name: 'AdminDashboard',
   beforeEnter: function beforeEnter(to, from, next) {
-    axios__WEBPACK_IMPORTED_MODULE_15___default.a.get('adminAuthenticated').then(function () {
+    axios__WEBPACK_IMPORTED_MODULE_17___default.a.get('adminAuthenticated').then(function () {
       next();
     })["catch"](function () {
       return next({
@@ -104833,7 +105361,7 @@ var routes = [//Auth
   path: '/admin_company_details',
   component: _components_admin_CompanyDetailsComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
   beforeEnter: function beforeEnter(to, from, next) {
-    axios__WEBPACK_IMPORTED_MODULE_15___default.a.get('adminAuthenticated').then(function () {
+    axios__WEBPACK_IMPORTED_MODULE_17___default.a.get('adminAuthenticated').then(function () {
       next();
     })["catch"](function () {
       return next({
@@ -104846,7 +105374,7 @@ var routes = [//Auth
   component: _components_admin_AccidentHotSpotsComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
   name: 'AccidentHotSpots',
   beforeEnter: function beforeEnter(to, from, next) {
-    axios__WEBPACK_IMPORTED_MODULE_15___default.a.get('adminAuthenticated').then(function () {
+    axios__WEBPACK_IMPORTED_MODULE_17___default.a.get('adminAuthenticated').then(function () {
       next();
     })["catch"](function () {
       return next({
@@ -104858,7 +105386,7 @@ var routes = [//Auth
   path: '/admin_chat',
   component: _components_admin_AdminChatComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
   beforeEnter: function beforeEnter(to, from, next) {
-    axios__WEBPACK_IMPORTED_MODULE_15___default.a.get('adminAuthenticated').then(function () {
+    axios__WEBPACK_IMPORTED_MODULE_17___default.a.get('adminAuthenticated').then(function () {
       next();
     })["catch"](function () {
       return next({
@@ -104872,7 +105400,7 @@ var routes = [//Auth
   component: _components_client_DashboardComponent_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
   name: 'ClientDashboard',
   beforeEnter: function beforeEnter(to, from, next) {
-    axios__WEBPACK_IMPORTED_MODULE_15___default.a.get('clientAuthenticated').then(function () {
+    axios__WEBPACK_IMPORTED_MODULE_17___default.a.get('clientAuthenticated').then(function () {
       next();
     })["catch"](function () {
       return next({
@@ -104884,7 +105412,19 @@ var routes = [//Auth
   path: '/client_department',
   component: _components_client_DepartmentComponent_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
   beforeEnter: function beforeEnter(to, from, next) {
-    axios__WEBPACK_IMPORTED_MODULE_15___default.a.get('clientAuthenticated').then(function () {
+    axios__WEBPACK_IMPORTED_MODULE_17___default.a.get('clientAuthenticated').then(function () {
+      next();
+    })["catch"](function () {
+      return next({
+        name: 'unauthorizedAccess'
+      });
+    });
+  }
+}, {
+  path: '/alert_settings',
+  component: _components_client_AlertSettingsComponent_vue__WEBPACK_IMPORTED_MODULE_15__["default"],
+  beforeEnter: function beforeEnter(to, from, next) {
+    axios__WEBPACK_IMPORTED_MODULE_17___default.a.get('clientAuthenticated').then(function () {
       next();
     })["catch"](function () {
       return next({
@@ -104909,21 +105449,24 @@ var routes = [//Auth
 }, //Vehicles
 {
   path: '/manage_vehicles',
-  component: _components_client_ManageVehiclesComponent_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
+  component: _components_client_ManageVehiclesComponent_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
 }, {
   path: '/vehicle_inspection',
-  component: _components_client_VehicleInspectionComponent_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
+  component: _components_client_VehicleInspectionComponent_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
 }, {
   path: '/PABXnumbers',
-  component: _components_client_PABXNumbersComponent_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+  component: _components_client_PABXNumbersComponent_vue__WEBPACK_IMPORTED_MODULE_16__["default"]
+}, {
+  path: '/vehicle_map',
+  component: _components_client_MapComponent_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
 }, //settings
 {
   path: '/general_settings',
-  component: _components_client_GeneralSettingsComponent_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
+  component: _components_client_GeneralSettingsComponent_vue__WEBPACK_IMPORTED_MODULE_13__["default"]
 }, //Profile
 {
   path: '/profile',
-  component: _components_client_ProfileComponent_vue__WEBPACK_IMPORTED_MODULE_13__["default"]
+  component: _components_client_ProfileComponent_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
 }];
 
 /***/ }),

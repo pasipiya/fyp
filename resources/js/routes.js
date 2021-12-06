@@ -17,12 +17,15 @@ import ClientDashboard from './components/client/DashboardComponent.vue'
 import ClientDepartment from './components/client/DepartmentComponent.vue'
 import ClientEmployee from './components/client/EmployeeComponent.vue'
 import VehicleParameters from './components/client/VehicleParametersComponent.vue'
+import VehicleMap from './components/client/MapComponent.vue'
 
 import ManageVehicles from './components/client/ManageVehiclesComponent.vue'
 import VehicleInspection from './components/client/VehicleInspectionComponent.vue'
 import GeneralSettings from './components/client/GeneralSettingsComponent.vue'
 import Employee from './components/client/EmployeeComponent.vue'
 import ClientProfile from './components/client/ProfileComponent.vue'
+import AlertSettings from './components/client/AlertSettingsComponent.vue'
+
 
 
 //Soft PABX
@@ -139,6 +142,20 @@ export const routes = [
             })
           }
     },
+
+    {
+        path:'/alert_settings',
+        component:AlertSettings,
+        beforeEnter:(to, from, next) => {
+            axios.get('clientAuthenticated').then(()=>{
+                next()
+            }).catch(()=>{
+                return next({name: 'unauthorizedAccess'})
+            })
+          }
+    },
+
+
     {
         path:'/client_employee',
         component:ClientEmployee
@@ -173,6 +190,10 @@ export const routes = [
     {
         path:'/PABXnumbers',
         component:PABXNumbers
+    },
+    {
+        path:'/vehicle_map',
+        component:VehicleMap
     },
 
     //settings

@@ -9,7 +9,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard v2</h1>
+            <h1 class="m-0 text-dark">SL Fleet - Dashboard</h1>
           </div>
           <!-- /.col -->
           <div class="col-sm-6">
@@ -18,7 +18,7 @@
               <li class="breadcrumb-item">
                 <a href="#">Home</a>
               </li>
-              <li class="breadcrumb-item active">Dashboard v2</li>
+              <li class="breadcrumb-item active">SL Fleet - Dashboard</li>
             </ol>
           </div>
           <!-- /.col -->
@@ -42,9 +42,9 @@
                 <div class="padding-20">
                   <div class="text-right">
                     <h3 class="font-light mb-0">
-                      <i class="ti-arrow-up text-success"></i> 10
+                      <i class="ti-arrow-up text-success"></i> 1
                     </h3>
-                    <span class="text-muted">People</span>
+                    <span class="text-muted">Total Vehicles</span>
                   </div>
                 </div>
               </div>
@@ -59,7 +59,7 @@
                 <div class="padding-20">
                   <div class="text-right">
                     <h3 class="font-light mb-0">
-                      <i class="ti-arrow-up text-success"></i> 785
+                      <i class="ti-arrow-up text-success"></i> 1
                     </h3>
                     <span class="text-muted">Total Vehicles</span>
                   </div>
@@ -76,9 +76,9 @@
                 <div class="padding-20">
                   <div class="text-right">
                     <h3 class="font-light mb-0">
-                      <i class="ti-arrow-up text-success"></i> 15
+                      <i class="ti-arrow-up text-success"></i> 1
                     </h3>
-                    <span class="text-muted">Drivers</span>
+                    <span class="text-muted">Total Drivers</span>
                   </div>
                 </div>
               </div>
@@ -152,7 +152,10 @@
                 }"
               >
 
-    Vehicle {{ m.vehicle_id }}
+    <!-- Vehicle {{ m.vehicle_id }} -->
+    Vehicle : Vehicle 1
+    <br>
+    Diver : Pasindu
                 <br />
                 Speed : {{ m.speed }} kmh
                 <br />
@@ -214,7 +217,8 @@
                               class="nav-link"
                             >
                               <!-- <i class="nav-icon fas fa-th"></i> -->
-                              <span> {{ vehicle.vehicle_id }}</span>
+                              <!-- <span> {{ vehicle.vehicle_id }}</span> -->
+                             <span> Vehicle 1 </span>
                             </router-link>
                           </li>
                         </ol>
@@ -437,7 +441,7 @@ export default {
     this.getUser();
     this.getMarkers();
     this.loadVehicleData();
-    this.obj = setInterval(() => this.loadVehicleData(), 3000);
+    this.obj = setInterval(() => this.loadVehicleData(), 10000);
 
     Echo.channel("location").listen("LocationEvent", (e) => {
       console.log(e);
