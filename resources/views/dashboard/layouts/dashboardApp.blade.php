@@ -8,7 +8,7 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>{{ config('app.name', 'Laravel') }}</title>
+  <title>{{ config('app.name', 'Fleet Monitoring System') }}</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{asset('admin/plugins/fontawesome-free/css/all.min.css')}}">
@@ -57,7 +57,7 @@
 
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
-  
+
         <!-- Notifications Dropdown Menu -->
         <!--
         <li class="nav-item dropdown">

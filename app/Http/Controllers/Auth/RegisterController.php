@@ -9,6 +9,9 @@ use App\Company;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -50,11 +53,21 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+       // return Validator::make($data, [
+        return $validator= Validator::make($data, [
+
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            //'email' => 'required|exists:users',
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
+
+        // if($validation->fails()){
+        //     flash('Email Does Not Exists')->error();
+        //     // or
+        //     $request->session()->flash('message', 'Email Does Not Exists');
+        //     return redirect('/');
+        // }
     }
 
     /**
@@ -63,14 +76,50 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
+
+
     protected function create(array $data)
     {
-        return User::create([
+        return $user= User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'is_role'=>'2',
+            'is_role'=>'Owner',
+            'user_type'=>'Client',
             'user_status'=>'1',
+            'company_name'=>$data['company_name'],
         ]);
+
+
+
     }
+
+    // protected function register(Request $request )
+    // {
+    //     $user = User::create([
+    //                 'name' => $request['name'],
+    //                 'email' => $request['email'],
+    //                 'password' => Hash::make($request['password']),
+    //                 'is_role'=>'2',
+    //                 'user_status'=>'1',
+    //             ]);
+
+    //             Company::create([
+    //                 'company_name'=>$request['company_name'],
+    //                 'owner_id'=>$user->id,
+    //                 'company_status'=>'1',
+    //             ]);
+    //             $request->session()->flash('success','Welcome! You have been registered successfully ');
+    //             return redirect('/');
+
+    // }
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        event(new Registered($user = $this->create($request->all())));
+        // $this->guard()->login($user);
+        $request->session()->flash('success','Welcome! You have been registered successfully ');
+        return $this->registered($request, $user)
+                            ?: redirect($this->redirectPath());
+     }
 }

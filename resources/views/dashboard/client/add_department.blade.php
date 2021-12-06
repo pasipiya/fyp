@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div id="app" class="content-wrapper">
       <!-- Content Header (Page header) -->
       <div class="content-header">
         <div class="container-fluid">
@@ -50,8 +50,6 @@
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
-
- 
           <!-- Main row -->
           <div class="row">
             <div class="col-md-12">
@@ -82,7 +80,7 @@
                               @if($row['department_status']==1)
                               <span class="badge badge-success">Active</span>
                               @endif
-        
+
                             </td>
                             <td>
                               <div class="dropdown">
@@ -91,8 +89,8 @@
                                   Action
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          
-                          
+
+
                                   @if($row['department_status']==0)
                                   <a class="dropdown-item" href="{{url('/active_department/'.$row["_id"] )}}">Active</a>
                                   @endif
@@ -122,6 +120,32 @@
 
 
 
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                  <!-- Main row -->
+                  <div class="row">
+                    <div class="col-md-12">
+
+                        <span class="success" style="color:green; margin-top:10px; margin-bottom: 10px;"></span>
+
+                        <div class="card">
+                            <div class="card-body">
+                              <department>
+                              </department>
+                            </div>
+                          </div>
+                    </div>
+                  </div>
+                  <!-- /.row -->
+                </div>
+                <!--/. container-fluid -->
+              </section>
+              <!-- /.content -->
+
+
+
     <!-- modal -->
     <div class="modal fade" id="modal-lg">
         <div class="modal-dialog modal-lg">
@@ -141,16 +165,16 @@
                   <div class="card-body">
                     <div class="form-group">
                         <label>Department Name:</label>
-                        <input type="text" name="department_name" class="form-control" placeholder="Enter Department Name" required="">
+                        <input v-model='content' type="text" id="department_name" name="department_name" class="form-control" placeholder="Enter Department Name" required="">
                     </div>
-  
+
                   </div>
                   <!-- /.card-body -->
-  
+
                   <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                  </div>
+                    <a href=""><span class="btn btn-primary" @click.prevent='submitDepartment'>Submit</span></a>
+                </div>
                 </form>
               </div>
               <!-- /.card -->
@@ -161,9 +185,9 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.modal -->
-  
-  
-  
+
+
+
 
 
 
@@ -176,5 +200,33 @@
     @endsection
     @push('scripts')
 
- 
+    <script>
+        export default {
+            data() {
+              return {
+                departments: []
+              }
+            },
+            methods:{
+        submitDepartment(){
+            axios.post('/submit_department',{
+                department_name : this.content,
+            })
+            .then(response=> {
+              console.log(response);
+              this.$toaster.success('Your toaster success message.')
+              let uri = '/get_departments';
+            axios.get(uri).then(response => {
+              this.departments = response.data;
+              console.log(response)
+            });
+            })
+            .catch(error=> {
+              console.log(error);
+            });
+        }
+    },
+
+        }
+      </script>
     @endpush

@@ -14,25 +14,27 @@ class DatabaseSeeder extends Seeder
         $user = [
             [
                'name'=>'Super Admin',
-               'email'=>'superadmin@gmail.com',
-               'password'=> bcrypt('123456'),
-               'is_role'=>'1',
+               'email'=>'itecgenies@gmail.com',
+               'user_type'=>'Admin',
+               'password'=> bcrypt('pasi1234'),
+               'is_role'=>'Super',
                'user_status'=>'1',
-               
+
             ],
-            
-            [
-                'name'=>'Company1',
-                'email'=>'company1@gmail.com',
-                'password'=> bcrypt('123456'),
-                'is_role'=>'2',
-                'user_status'=>'1',
-                
-             ],
-             
+
+            // [
+            //     'name'=>'Company1',
+            //     'email'=>'company1@gmail.com',
+            //     'user_type'=>'client',
+            //     'password'=> bcrypt('123456'),
+            //     'is_role'=>'2',
+            //     'user_status'=>'1',
+
+            //  ],
+
 
         ];
-  
+
         foreach ($user as $key => $value) {
             User::create($value);
         }

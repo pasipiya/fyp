@@ -17,7 +17,7 @@ class VehicleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -25,21 +25,59 @@ class VehicleController extends Controller
 
     public function index()
     {
-   
-        $vehicle_type = DB::table('vehicles')->orderBy('id', 'DESC')->get();
+        $company_id=Auth::user()->_id;
+        return $vehicles = DB::table('vehicles')->where('company_id', '=',$company_id)->orderBy('_id', 'DESC')->get();
 
-        return view('dashboard.client.add_vehicle_type')->with('vehicle_type',$vehicle_type);
     }
 
-    public function vehicles()
+
+
+    // public function vehicles()
+    // {
+    //     $vehicle_type = DB::table('vehicles')->get();
+    //     $vehicles = DB::table('add_vehicles')->orderBy('id', 'DESC')->get();
+    //     return view('dashboard.client.add_vehicle')->with('vehicle_type',$vehicle_type)->with('vehicles',$vehicles);
+    // }
+
+    public function submitVehicle(Request $request)
     {
-   
-        $vehicle_type = DB::table('vehicles')->get();
-        $vehicles = DB::table('add_vehicles')->orderBy('id', 'DESC')->get();
+        try{
+            // $validator = Validator::make($request->all(), [
+            //     'vehicle_image' => 'required|image64:jpeg,jpg,png'
+            // ]);
 
-        return view('dashboard.client.add_vehicle')->with('vehicle_type',$vehicle_type)->with('vehicles',$vehicles);
+            $company_id=Auth::user()->_id;
+
+            $vehicle = new Vehicle([
+                'company_id' =>$company_id,
+                'vehicle_manufacture' =>$request->get('vehicle_manufacture'),
+                'vehicle_engine_type' =>$request->get('vehicle_engine_type'),
+                'vehicle_model' =>$request->get('vehicle_model'),
+                'vehicle_horse_power' =>$request->get('vehicle_horse_power'),
+                'vehicle_type' =>$request->get('vehicle_type'),
+                'vehicle_color' =>$request->get('vehicle_color'),
+                'vehicle_year' =>$request->get('vehicle_year'),
+                'vehicle_avarage_fuel' =>$request->get('vehicle_avarage_fuel'),
+                'license_plate' =>$request->get('license_plate'),
+                'vehicle_initial_mileage' =>$request->get('vehicle_initial_mileage'),
+                'license_expiry_date' =>$request->get('license_expiry_date'),
+                'insurance_expiry_date' =>$request->get('insurance_expiry_date'),
+                'vehicle_obd_mac' =>$request->get('vehicle_obd_mac'),
+                'vehicle_gps_model' =>$request->get('vehicle_gps_model'),
+                //'vehicle_image' =>$request->get('vehicle_image'),
+                'vehicle_in_service' =>$request->get('vehicle_in_service'),
+                ]);
+
+
+            $vehicle->save();
+            //$request->session()->flash('success','Depatment added successfully');
+
+            //return back();
+        }catch(\Exception $error){
+            $request->session()->flash('delete','Something goes wrong. Please check');
+            return back();
+        }
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -101,8 +139,13 @@ class VehicleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
+        try{
+            $vehicle=Vehicle::where('_id', '=', $id)->delete();
+            return true;
+            }catch(\Exception $error){
+                return false;
+            }
     }
 }

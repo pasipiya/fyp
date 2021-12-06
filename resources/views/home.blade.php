@@ -88,11 +88,20 @@
           </div>
           <!-- /.row -->
 
- 
+
           <!-- Main row -->
           <div class="row">
             <div class="col-md-8">
-             
+                <gmap-map
+                :center="{lat:51.508742, lng:-0.120850}"
+                :zoom="7"
+                style="width: 100%; height: 400px"
+              >
+              <gmap-marker
+              :position="{lat:51.508742, lng:-0.120850}"
+              :clickable="true"
+            ></gmap-marker>
+              </gmap-map>
             </div>
             <div class="col-md-4">
               <!-- Info Boxes Style 2 -->

@@ -22,33 +22,34 @@ class DepartmentController extends Controller
 
     public function index()
     {
-        $department = DB::table('department')->orderBy('id', 'DESC')->get();
+        return $department = DB::table('department')->orderBy('_id', 'DESC')->get();
         //$department = DB::table('department')->get();
         //$department = DB::table('users')->get();
         //print_r($department);
-        return view('dashboard.client.add_department')->with('department',$department);
+        //return view('dashboard.client.add_department')->with('department',$department);
     }
 
-    
+    public function getDepartments(){
+        return $department = DB::table('department')->orderBy('id', 'DESC')->get();
+    }
 
     public function submitDepartment(Request $request)
     {
         try{
-            $department = new Department([ 
+            $department = new Department([
                 'department_name' =>$request->get('department_name'),
                 'company_id' => '1',
                 'department_status' => '1',
                 ]);
-
             $department->save();
-
             $request->session()->flash('success','Depatment added successfully');
-            return back();
+
+            //return back();
         }catch(\Exception $error){
             $request->session()->flash('delete','Something goes wrong. Please check');
             return back();
         }
-      
+
     }
 
 
@@ -56,17 +57,17 @@ class DepartmentController extends Controller
     public function test(Request $request, $id)
     {
         try{
-    
+
             echo"kdjed";
         }catch(\Exception $error){
             $request->session()->flash('delete','Algo deu errado. Por favor, tente novamente.');
             return back();
         }
-      
+
     }
 
     public function testdep()
-    {   
+    {
         $userID=Auth::user()->id;
         $name=Auth::user()->name;
         echo $name;
@@ -83,7 +84,7 @@ class DepartmentController extends Controller
         //return view('testMongo');
     }
 
-    
+
     public function addDepartment()
     {
         $data = $request->all();
@@ -92,7 +93,7 @@ class DepartmentController extends Controller
         return response()->json(['success'=>'Ajax request submitted successfully']);
     }
 
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -154,8 +155,17 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
+        try{
+            //$department = Department::find($id);
+            $department=Department::where('_id', '=', $id)->delete();
+            //$department->delete();
+            //$request->session()->flash('success','Voo excluído com sucesso');
+            return true;
+            }catch(\Exception $error){
+                //$request->session()->flash('delete','Algo deu errado. Por favor, tente novamente.');
+                return false;
+            }
     }
 }

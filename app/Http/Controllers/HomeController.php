@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 use App\User;
+use App\Events\LocationEvent;
 
 class HomeController extends Controller
 {
@@ -25,13 +26,29 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
     public function index()
     {
-        return view('home');
+        //return view('dashboard.master');
+        return view('dashboard.master');
     }
 
+
+    public function pusherMap(){
+        $lat = '10';
+        $long = '20';
+        //$location="hkhk";
+        $location = ["lat"=>$lat, "long"=>$long];
+        //$user=User::find(Auth::id());
+        //event(new LocationEvent($location));
+        event(new LocationEvent($location));
+        //return response()->json(['status'=>'success', 'data'=>$location]);
+    }
+
+
+
     public function testMongo()
-    {   
+    {
         $userID=Auth::user()->id;
         $name=Auth::user()->name;
         echo $name;
@@ -48,12 +65,25 @@ class HomeController extends Controller
         //return view('testMongo');
     }
 
+    public function apiTest()
+    {
+
+        return User::all();
+    }
+
     public function store(Request $request)
     {
         $data = $request->all();
         #create or update your data here
 
         return response()->json(['success'=>'Ajax request submitted successfully']);
+    }
+    public function logout(){
+        auth()->logout();
+        return redirect('/');
+    }
+    public function getUserData(){
+        return $userData = Auth::user()->_id;
     }
 
 }
