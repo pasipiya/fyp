@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use App\Company;
+use App\Settings;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -80,7 +81,7 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
-        return $user= User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
@@ -90,8 +91,30 @@ class RegisterController extends Controller
             'company_name'=>$data['company_name'],
         ]);
 
+        $company = Company::create([
+            'company_name'=>$data['company_name'],
+            'owner_id'=>$user['_id'],
+            'company_status'=>'1',
+        ]);
 
+        Settings::create([
+            'company_id' => $company['_id'],
+            'setting_type'=> 'general_settings',
+            'gps'=> true,
+            'rpm'=> true,
+            'speed'=> true,
+            'vehicle_run_time'=>true,
+            'frequency'=>5
+        ]);
 
+        Settings::create([
+            'company_id' => $company['_id'],
+            'setting_type'=> 'alert_settings',
+            'speed_alert'=> true,
+            'rpm_alert'=> true,
+            'speed_limit'=> 100,
+            'rpm_limit'=>100,
+        ]);
     }
 
     // protected function register(Request $request )
@@ -117,7 +140,6 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
         event(new Registered($user = $this->create($request->all())));
-        // $this->guard()->login($user);
         $request->session()->flash('success','Welcome! You have been registered successfully ');
         return $this->registered($request, $user)
                             ?: redirect($this->redirectPath());

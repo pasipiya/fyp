@@ -2,7 +2,7 @@ import TestAdminView from './components/client/TestComponent.vue'
 
 //Admin
 import AdminDashboard from './components/admin/AdminDashboardComponent.vue'
-import AdminCompanyDetails from './components/admin/CompanyDetailsComponent.vue'
+import AdminUsersDetails from './components/admin/UsersDetailsComponent.vue'
 import AdminChat from './components/admin/AdminChatComponent.vue'
 import AccidentHotSpots from './components/admin/AccidentHotSpotsComponent.vue'
 
@@ -37,73 +37,73 @@ export const routes = [
 
     //Auth
     {
-        path:'/unauthorizedAccess',
-        component:unauthorizedAccess,
-        name:'unauthorizedAccess'
+        path: '/unauthorizedAccess',
+        component: unauthorizedAccess,
+        name: 'unauthorizedAccess'
 
     },
 
     {
-        path:'/',
-        beforeEnter:(to, from, next) => {
-            axios.get('adminAuthenticated').then(()=>{
-                return next({name: 'AdminDashboard'})
-            }).catch(()=>{
-                return next({name: 'ClientDashboard'})
+        path: '/',
+        beforeEnter: (to, from, next) => {
+            axios.get('adminAuthenticated').then(() => {
+                return next({ name: 'AdminDashboard' })
+            }).catch(() => {
+                return next({ name: 'ClientDashboard' })
             })
-          }
+        }
     },
 
     //Admin
     {
-        path:'/AdminDashboard',
-        component:AdminDashboard,
-        name:'AdminDashboard',
-        beforeEnter:(to, from, next) => {
-            axios.get('adminAuthenticated').then(()=>{
+        path: '/AdminDashboard',
+        component: AdminDashboard,
+        name: 'AdminDashboard',
+        beforeEnter: (to, from, next) => {
+            axios.get('adminAuthenticated').then(() => {
                 next()
-            }).catch(()=>{
-                return next({name: 'unauthorizedAccess'})
+            }).catch(() => {
+                return next({ name: 'unauthorizedAccess' })
             })
-          }
+        }
     },
 
     {
-        path:'/admin_company_details',
-        component:AdminCompanyDetails,
-        beforeEnter:(to, from, next) => {
-            axios.get('adminAuthenticated').then(()=>{
+        path: '/admin_users_details',
+        component: AdminUsersDetails,
+        beforeEnter: (to, from, next) => {
+            axios.get('adminAuthenticated').then(() => {
                 next()
-            }).catch(()=>{
-                return next({name: 'unauthorizedAccess'})
+            }).catch(() => {
+                return next({ name: 'unauthorizedAccess' })
             })
-          }
+        }
 
     },
 
-        {
-            path:'/accident_hot_spots',
-            component:AccidentHotSpots,
-            name:'AccidentHotSpots',
-            beforeEnter:(to, from, next) => {
-                axios.get('adminAuthenticated').then(()=>{
-                    next()
-                }).catch(()=>{
-                    return next({name: 'unauthorizedAccess'})
-                })
-              }
-        },
+    {
+        path: '/accident_hot_spots',
+        component: AccidentHotSpots,
+        name: 'AccidentHotSpots',
+        beforeEnter: (to, from, next) => {
+            axios.get('adminAuthenticated').then(() => {
+                next()
+            }).catch(() => {
+                return next({ name: 'unauthorizedAccess' })
+            })
+        }
+    },
 
     {
-        path:'/admin_chat',
-        component:AdminChat,
-        beforeEnter:(to, from, next) => {
-            axios.get('adminAuthenticated').then(()=>{
+        path: '/admin_chat',
+        component: AdminChat,
+        beforeEnter: (to, from, next) => {
+            axios.get('adminAuthenticated').then(() => {
                 next()
-            }).catch(()=>{
-                return next({name: 'unauthorizedAccess'})
+            }).catch(() => {
+                return next({ name: 'unauthorizedAccess' })
             })
-          }
+        }
 
     },
 
@@ -117,94 +117,94 @@ export const routes = [
     //Client
 
     {
-        path:'/ClientDashboard',
-        component:ClientDashboard,
-        name:'ClientDashboard',
-        beforeEnter:(to, from, next) => {
-            axios.get('clientAuthenticated').then(()=>{
+        path: '/ClientDashboard',
+        component: ClientDashboard,
+        name: 'ClientDashboard',
+        beforeEnter: (to, from, next) => {
+            axios.get('clientAuthenticated').then(() => {
                 next()
-            }).catch(()=>{
-                return next({name: 'unauthorizedAccess'})
+            }).catch(() => {
+                return next({ name: 'unauthorizedAccess' })
             })
-          }
+        }
 
     },
 
 
     {
-        path:'/client_department',
-        component:ClientDepartment,
-        beforeEnter:(to, from, next) => {
-            axios.get('clientAuthenticated').then(()=>{
+        path: '/client_department',
+        component: ClientDepartment,
+        beforeEnter: (to, from, next) => {
+            axios.get('clientAuthenticated').then(() => {
                 next()
-            }).catch(()=>{
-                return next({name: 'unauthorizedAccess'})
+            }).catch(() => {
+                return next({ name: 'unauthorizedAccess' })
             })
-          }
+        }
     },
 
     {
-        path:'/alert_settings',
-        component:AlertSettings,
-        beforeEnter:(to, from, next) => {
-            axios.get('clientAuthenticated').then(()=>{
+        path: '/alert_settings',
+        component: AlertSettings,
+        beforeEnter: (to, from, next) => {
+            axios.get('clientAuthenticated').then(() => {
                 next()
-            }).catch(()=>{
-                return next({name: 'unauthorizedAccess'})
+            }).catch(() => {
+                return next({ name: 'unauthorizedAccess' })
             })
-          }
+        }
     },
 
 
     {
-        path:'/client_employee',
-        component:ClientEmployee
+        path: '/client_employee',
+        component: ClientEmployee
     },
     {
-        path:'/vehicle_parameters/:id',
-        name:'vehicle_parameters',
-        component:VehicleParameters
+        path: '/vehicle_parameters/:id',
+        name: 'vehicle_parameters',
+        component: VehicleParameters
     },
     {
-        path:'/test_admin_view',
-        component:TestAdminView
+        path: '/test_admin_view',
+        component: TestAdminView
     },
 
     //Users
     {
-        path:'/employee',
-        component:Employee
+        path: '/employee',
+        component: Employee
     },
 
 
     //Vehicles
     {
-        path:'/manage_vehicles',
-        component:ManageVehicles
+        path: '/manage_vehicles',
+        component: ManageVehicles
     },
     {
-        path:'/vehicle_inspection',
-        component:VehicleInspection
+        path: '/vehicle_inspection',
+        component: VehicleInspection
     },
 
     {
-        path:'/PABXnumbers',
-        component:PABXNumbers
+        path: '/PABXnumbers',
+        component: PABXNumbers
     },
     {
-        path:'/vehicle_map',
-        component:VehicleMap
+        path: '/vehicle_map',
+        component: VehicleMap
     },
 
     //settings
     {
-        path:'/general_settings',
-        component:GeneralSettings
+        path: '/general_settings',
+        component: GeneralSettings
     },
 
     //Profile
     {
-        path:'/profile',
-        component:ClientProfile
+        path: '/profile',
+        component: ClientProfile
     }
 ];

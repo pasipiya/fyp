@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Auth;
 use App\User;
+use App\Company;
 
 
 class CompanyController extends Controller
@@ -20,13 +21,15 @@ class CompanyController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
-    {
-        return view('dashboard.client.add_company');
+    public function getCompaniesAdmin(){
+        $companies = DB::table('companies')->get();
+        return $companies;
     }
 
-    public function getCompanyAdmin(){
-        return $companies = DB::table('users')->where('user_type','=','Client')->get();
+    public function getUsersAdmin(){
+        $users = DB::table('users')
+        ->where('user_type','Client')->get();
+        return $users;
     }
 
     /**
@@ -92,6 +95,32 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $user=User::where('_id', '=', $id)->delete();
+            return true;
+            }catch(\Exception $error){
+                return false;
+            }
+    }
+
+    public function active($id)
+    {
+        try{
+            $user=User::find($id);
+            $user->user_status=1;
+            $user->save();
+            }catch(\Exception $error){
+                return false;
+            }
+    }
+    public function deactive($id)
+    {
+        try{
+            $user=User::find($id);
+            $user->user_status=0;
+            $user->save();
+            }catch(\Exception $error){
+                return false;
+            }
     }
 }

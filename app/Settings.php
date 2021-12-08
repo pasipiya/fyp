@@ -11,8 +11,15 @@ class Settings extends Model
 
     protected $fillable = [
         'company_id',
-        'user_type',
-        
-
+        'setting_type',
+        'gps',
+        'rpm',
+        'speed',
+        'vehicle_run_time',
+        'frequency',
+        'speed_alert',
+        'rpm_alert',
+        'speed_limit',
+        'rpm_limit'
     ];
 }

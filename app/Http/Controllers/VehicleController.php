@@ -25,12 +25,20 @@ class VehicleController extends Controller
 
     public function index()
     {
-        $company_id=Auth::user()->_id;
+        $owner_id=Auth::user()->_id;
+        $company = DB::table('companies')->where('owner_id',$owner_id)->first();
+        $company_id = $company['_id']->__toString();
         return $vehicles = DB::table('vehicles')->where('company_id', '=',$company_id)->orderBy('_id', 'DESC')->get();
 
     }
 
+    public function getVehicleAdmin($id){
+        $company = DB::table('companies')->where('owner_id',$id)->first();
+        $company_id = $company['_id']->__toString();
+        $vehicles = DB::table('vehicles')->where("company_id",$company_id)->get();
+        return $vehicles;
 
+    }
 
     // public function vehicles()
     // {
@@ -46,8 +54,9 @@ class VehicleController extends Controller
             //     'vehicle_image' => 'required|image64:jpeg,jpg,png'
             // ]);
 
-            $company_id=Auth::user()->_id;
-
+            $owner_id=Auth::user()->_id;
+            $company = DB::table('companies')->where('owner_id',$owner_id)->first();
+            $company_id = $company['_id']->__toString();
             $vehicle = new Vehicle([
                 'company_id' =>$company_id,
                 'vehicle_manufacture' =>$request->get('vehicle_manufacture'),
@@ -67,12 +76,7 @@ class VehicleController extends Controller
                 //'vehicle_image' =>$request->get('vehicle_image'),
                 'vehicle_in_service' =>$request->get('vehicle_in_service'),
                 ]);
-
-
             $vehicle->save();
-            //$request->session()->flash('success','Depatment added successfully');
-
-            //return back();
         }catch(\Exception $error){
             $request->session()->flash('delete','Something goes wrong. Please check');
             return back();

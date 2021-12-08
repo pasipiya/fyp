@@ -13,7 +13,6 @@
           </div>
           <!-- /.col -->
           <div class="col-sm-6">
-
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item">
                 <a href="#">Home</a>
@@ -32,7 +31,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <div class="row flex-column-reverse flex-md-row" >
+        <div class="row flex-column-reverse flex-md-row">
           <div class="col-lg-3 col-md-6 col-sm-6 col-12">
             <div class="card card-statistic-1">
               <div class="card-icon-square card-icon-bg-green">
@@ -59,7 +58,7 @@
                 <div class="padding-20">
                   <div class="text-right">
                     <h3 class="font-light mb-0">
-                      <i class="ti-arrow-up text-success"></i> 1
+                      <i class="ti-arrow-up text-success"></i> {{Object.keys(vehicleData).length}}
                     </h3>
                     <span class="text-muted">Total Vehicles</span>
                   </div>
@@ -67,7 +66,7 @@
               </div>
             </div>
           </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+          <div class="col-lg-3 col-md-6 col-sm-6 col-12">
             <div class="card card-statistic-1">
               <div class="card-icon-square card-icon-bg-purple">
                 <i class="fas fa-cart-plus"></i>
@@ -84,7 +83,13 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-3 col-md-6 col-sm-6 col-12 d-flex justify-content-center">
+          <div
+            class="
+              col-lg-3 col-md-6 col-sm-6 col-12
+              d-flex
+              justify-content-center
+            "
+          >
             <!-- <div class="card card-statistic-1">
               <div class="card-icon-square card-icon-bg-orange">
                 <i class="fas fa-dollar-sign"></i>
@@ -100,19 +105,20 @@
                 </div>
               </div>
             </div> -->
-              <!-- <VueClock /> -->
-               <div style="margin-bottom:20px">
-  <clock size="100px" border="none" bg="radial-gradient(circle, #ecffe5, #fffbe1, #38ff91)"></clock>
-               </div>
-
+            <!-- <VueClock /> -->
+            <div style="margin-bottom: 20px">
+              <clock
+                size="100px"
+                border="none"
+                bg="radial-gradient(circle, #ecffe5, #fffbe1, #38ff91)"
+              ></clock>
+            </div>
           </div>
-
-
         </div>
 
         <!-- Main row -->
         <div class="row">
-          <div class="col-md-9" style="margin-bottom:20px">
+          <div class="col-md-9" style="margin-bottom: 20px">
             <gmap-map
               :center="{ lat: 7.290871, lng: 80.296412 }"
               :zoom="7"
@@ -151,17 +157,14 @@
                   },
                 }"
               >
-
-    <!-- Vehicle {{ m.vehicle_id }} -->
-    Vehicle : Vehicle 1
-    <br>
-    Diver : Pasindu
+                <!-- Vehicle {{ m.vehicle_id }} -->
+                Vehicle : Vehicle 1
+                <br />
+                Diver : Pasindu
                 <br />
                 Speed : {{ m.speed }} kmh
                 <br />
                 RPM : {{ m.rpm }}
-
-
               </gmap-info-window>
             </gmap-map>
           </div>
@@ -205,23 +208,20 @@
                       data-parent="#accordionExample"
                     >
                       <div class="card-body">
-                        <ol style="margin-top: -30px" class="list-group">
-                          <li>
                             <router-link
                               v-for="(vehicle, index) in vehicleData"
                               :key="index"
                               :to="{
                                 name: 'vehicle_parameters',
-                                params: { id: vehicle.vehicle_id},
+                                params: { id: vehicle.vehicle_id },
                               }"
                               class="nav-link"
                             >
-                              <!-- <i class="nav-icon fas fa-th"></i> -->
-                              <!-- <span> {{ vehicle.vehicle_id }}</span> -->
-                             <span> Vehicle 1 </span>
+                               <i class="nav-icon fas fa-car"></i>
+                               <span> Pasindu </span>
+                              <!-- <span> {{ vehicle.vehicle_id }}</span>-->
                             </router-link>
-                          </li>
-                        </ol>
+
                       </div>
                     </div>
                   </div>
@@ -272,13 +272,11 @@ import { CalendarView, CalendarViewHeader } from "vue-simple-calendar";
 require("vue-simple-calendar/static/css/default.css");
 require("vue-simple-calendar/static/css/holidays-us.css");
 
-
 export default {
-
-    //components: { Clock },
+  //components: { Clock },
   data() {
     return {
-        time: '10:40:00',
+      time: "10:40:00",
       userData: [],
       icon: this.getSiteIcon(3),
       vehicleData: [],
@@ -446,7 +444,7 @@ export default {
     Echo.channel("location").listen("LocationEvent", (e) => {
       console.log(e);
       this.vehicleData = e.vehicleData;
-      console.log(this.vehicleData);
+      console.log(Object.keys(this.vehicleData).length);
       return this.vehicleData;
     });
 

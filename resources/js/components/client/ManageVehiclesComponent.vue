@@ -661,7 +661,7 @@ export default {
             let uri = "get_vehicles";
             axios.get(uri).then(response => {
                 this.vehicles = response.data;
-                console.log(this.vehicles);
+                console.log(response.data);
                 // this.vehicles = response.data.filter(d => d.vehicle_year === "2014");
                 // console.log(this.vehicles);
             });

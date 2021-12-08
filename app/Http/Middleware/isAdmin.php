@@ -15,11 +15,10 @@ class isAdmin
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->user()->is_role == 'Super'){
+        if(auth()->user()->user_type == 'Admin' && auth()->user()->is_role == 'Super'){
             return $next($request);
         }else{
             return redirect('unauthorizedAccess')->with('delete',"You don't have access.");
         }
-
     }
 }

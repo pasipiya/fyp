@@ -22,8 +22,10 @@ class DepartmentController extends Controller
 
     public function index()
     {
-        return $department = DB::table('department')->orderBy('_id', 'DESC')->get();
-        //$department = DB::table('department')->get();
+        $owner_id=Auth::user()->_id;
+        $company_id = DB::table('companies')->where('owner_id',$owner_id)->first();
+        return $department = DB::table('department')->where('company_id',$company_id['_id'])->orderBy('_id', 'DESC')->get();
+        //return $department = DB::table('department')->get();
         //$department = DB::table('users')->get();
         //print_r($department);
         //return view('dashboard.client.add_department')->with('department',$department);
@@ -36,9 +38,11 @@ class DepartmentController extends Controller
     public function submitDepartment(Request $request)
     {
         try{
+            $owner_id=Auth::user()->_id;
+            $company_id = DB::table('companies')->where('owner_id',$owner_id)->first();
             $department = new Department([
                 'department_name' =>$request->get('department_name'),
-                'company_id' => '1',
+                'company_id' => $company_id['_id'],
                 'department_status' => '1',
                 ]);
             $department->save();

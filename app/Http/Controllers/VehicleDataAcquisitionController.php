@@ -21,12 +21,15 @@ class VehicleDataAcquisitionController extends Controller
 
     public function index()
     {
+        /*
         $company_id=Auth::user()->_id;
+        $vehicleData = DB::table('vehicle_data_acquisitions')->where('company_id', '=',$company_id)->orderBy('_id', 'DESC')->get()->unique('vehicle_id');
+        event(new LocationEvent($vehicleData));
+        */
         //$company_id="600140b88950000079007812";
         //$vehicleData = DB::table('vehicle_data_acquisitions')->where('company_id', '=',$company_id)->orderBy('_id', 'DESC')->get()->unique('vehicle_id');
-        $vehicleData = DB::table('vehicle_data_acquisitions')->where('company_id', '=',$company_id)->orderBy('_id', 'DESC')->get()->unique('vehicle_id');
         //$vehicleData=[10.5,130];
-        event(new LocationEvent($vehicleData));
+
         //return $vehicleData = DB::table('vehicle_data_acquisitions')->where('company_id', '=',$company_id)->groupBy('vehicle_id')->orderBy('_id', 'DESC')->get();
         //return $vehicleData = DB::table('vehicle_data_acquisitions')->where('company_id', '=',$company_id)->orderBy('_id', 'DESC')->get()->unique('vehicle_id');
         //event(new LocationEvent($vehicleData));
@@ -34,6 +37,13 @@ class VehicleDataAcquisitionController extends Controller
         //return json_encode($vehicleData);
 
         //return $vehicleData = $vehicleData->unique('vehicle_id');
+
+        $owner_id=Auth::user()->_id;
+        $company = DB::table('companies')->where('owner_id',$owner_id)->first();
+        $company_id = $company['_id']->__toString();
+        $vehicleData = DB::table('vehicle_data_acquisitions')->where('company_id', '=',$company_id)->orderBy('_id', 'DESC')->get()->unique('vehicle_id');
+        event(new LocationEvent($vehicleData));
+
     }
 
     //Get vehicles clients

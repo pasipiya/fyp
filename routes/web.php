@@ -45,12 +45,15 @@ Route::middleware('isClient')->get('/clientAuthenticated', function () {
 });
 
 
-
 /*Admin*/
-Route::get('/get_companies_admin', 'CompanyController@getCompanyAdmin')->middleware('isAdmin');
+Route::get('/get_users_admin', 'CompanyController@getUsersAdmin')->middleware('isAdmin');
+Route::get('/delete_user/{id}', 'CompanyController@destroy')->middleware('isAdmin');
+Route::get('/active_user/{id}', 'CompanyController@active')->middleware('isAdmin');
+Route::get('/deactive_user/{id}', 'CompanyController@deactive')->middleware('isAdmin');
 Route::post('/submit_accident_hot_spots', 'AccidentHotSpotsController@submit')->middleware('isAdmin');
 Route::get('/submit_accident_hot_spots', 'AccidentHotSpotsController@index')->middleware('isAdmin');
 Route::get('/get_vehicle_data_admin/{id}', 'VehicleDataAcquisitionController@getVehicleDataAdmin')->middleware('isAdmin');
+Route::get('/get_companies_admin', 'CompanyController@getCompaniesAdmin')->middleware('isAdmin');
 
 
 /*Client*/
@@ -85,6 +88,7 @@ Route::get('/get_vehicles', 'VehicleController@index');
 Route::post('/submit_vehicle', 'VehicleController@submitVehicle');
 Route::get('/delete_vehicle/{id}', 'VehicleController@destroy');
 Route::get('/get_vehicle_location', 'VehicleDataAcquisitionController@vehicleLocation');
+Route::get('/get_vehicles_admin/{id}', 'VehicleController@getVehicleAdmin');
 
 //Get Vehicle Data
 Route::get('/get_vehicle_data', 'VehicleDataAcquisitionController@index');
@@ -94,6 +98,14 @@ Route::get('/get_vehicle_data', 'VehicleDataAcquisitionController@index');
 Route::get('/get_user_data', 'HomeController@getUserData');
 
 
+
+
+
+//Settings
+Route::get('/general_settings', 'SettingsController@indexGeneral');
+Route::post('/general_settings', 'SettingsController@updateGeneral');
+Route::get('/alert_settings', 'SettingsController@indexAlert');
+Route::post('/alert_settings', 'SettingsController@updateAlert');
 
 
 Route::get('/home1', function () {

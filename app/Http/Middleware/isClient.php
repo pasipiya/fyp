@@ -15,7 +15,7 @@ class isClient
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->user()->is_role == 'Owner'){
+        if(auth()->user()->user_type == 'Client' && auth()->user()->is_role == 'Owner'){
             return $next($request);
         }else{
             return redirect('unauthorizedAccess')->with('delete',"You don't have access.");
