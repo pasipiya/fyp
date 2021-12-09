@@ -15,12 +15,13 @@ class CreateSoftPabxTable extends Migration
     {
         Schema::create('soft_pabx', function (Blueprint $table) {
             $table->id();
+            $table->string('company_id');
             $table->string('employee_name');
             $table->string('employee_type');
             $table->string('username');
             $table->string('pabx_number');
             $table->string('secret_key');
-            $table->string('server_name');
+            $table->string('host');
             $table->string('status');
             $table->timestamps();
         });

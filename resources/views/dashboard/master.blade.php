@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'FleetMonitoringSystem') }}</title>
+    <title>{{ config('app.name', 'SL_Fleet_Tracking') }}</title>
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('admin/assets/css/app.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/bundles/summernote/summernote-bs4.css') }}">
@@ -104,6 +103,12 @@
                                     <i class="fas fa-layer-group"></i><span>Accident Hot Spots</span>
                                 </router-link>
                             </li>
+                            <li>
+                                <router-link to="/pabx_admin" class="nav-link">
+                                    <i class="fas fa-layer-group"></i><span>PABX Admin</span>
+                                </router-link>
+                            </li>
+
 
                             <!--Settings-->
                             <li class="dropdown">

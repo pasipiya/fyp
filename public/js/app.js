@@ -2759,6 +2759,7 @@ __webpack_require__.r(__webpack_exports__);
   //components: { preloaderComponent },
   data: function data() {
     return {
+      totalVehiclesCount: "",
       companies: [],
       vehicleData: [],
       window_open: false,
@@ -2766,23 +2767,31 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    loadCompanies: function loadCompanies() {
+    totalVehicles: function totalVehicles() {
       var _this = this;
+
+      var uri = "total_vehicles";
+      axios.get(uri).then(function (response) {
+        _this.totalVehiclesCount = response.data;
+      });
+    },
+    loadCompanies: function loadCompanies() {
+      var _this2 = this;
 
       this.$Progress.start();
       var uri = "get_companies_admin";
       axios.get(uri).then(function (response) {
-        _this.companies = response.data; //console.log(response);
+        _this2.companies = response.data; //console.log(response);
       });
       this.$Progress.finish();
     },
     showCompanyVehicles: function showCompanyVehicles(companyId) {
-      var _this2 = this;
+      var _this3 = this;
 
       //alert(companyId)
       var uri = "get_vehicle_data_admin/" + companyId;
       axios.get(uri).then(function (response) {
-        _this2.vehicleData = response.data; //console.log(response)
+        _this3.vehicleData = response.data; //console.log(response)
       });
     },
     getSiteIcon: function getSiteIcon(status) {
@@ -2816,7 +2825,362 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
+    this.totalVehicles();
     this.loadCompanies();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/PABXAdminComponent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/PABXAdminComponent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//import preloaderComponent from '../theme_components/preloaderComponent.vue';
+/* harmony default export */ __webpack_exports__["default"] = ({
+  //components: { preloaderComponent },
+  data: function data() {
+    return {
+      pabxs: [],
+      companies: [],
+      form: new Form({})
+    };
+  },
+  methods: {
+    getCompanies: function getCompanies() {
+      var _this = this;
+
+      var uri = "get_companies_admin";
+      axios.get(uri).then(function (response) {
+        _this.companies = response.data;
+        console.log(response);
+      });
+    },
+    loadPABX: function loadPABX() {
+      var _this2 = this;
+
+      this.$Progress.start();
+      var uri = "pabx";
+      axios.get(uri).then(function (response) {
+        _this2.pabxs = response.data;
+        console.log(response);
+      });
+      this.$Progress.finish();
+    },
+    openModalWindow: function openModalWindow() {
+      this.form.reset();
+      $("#addNew").modal("show");
+    },
+    createPABX: function createPABX() {
+      var _this3 = this;
+
+      this.$Progress.start();
+      this.form.post("pabx").then(function () {
+        _this3.$toaster.success("PABX created successfully.");
+
+        _this3.$Progress.finish();
+
+        $("#addNew").modal("hide");
+      })["catch"](function () {
+        console.log("Error......");
+      });
+      this.loadPABX();
+    },
+    deletePABX: function deletePABX(id) {
+      var _this4 = this;
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          axios.get("delete_pabx/" + id).then(function (response) {
+            Swal.fire("Deleted!", "PABX deleted successfully", "success");
+
+            _this4.loadPABX();
+
+            console.log(response);
+          })["catch"](function () {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!"
+            });
+          });
+        }
+      });
+    }
+  },
+  created: function created() {
+    this.loadPABX();
+    this.getCompanies();
   }
 });
 
@@ -5741,111 +6105,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 //import preloaderComponent from '../theme_components/preloaderComponent.vue';
 /* harmony default export */ __webpack_exports__["default"] = ({
   //components: { preloaderComponent },
   data: function data() {
     return {
-      sub_pabx: 1,
-      editMode: false,
-      departments: [],
-      form: new Form({
-        id: "",
-        department_name: ""
-      })
+      pabxs: []
     };
   },
   methods: {
-    loadUsers: function loadUsers() {
+    loadPABX: function loadPABX() {
       var _this = this;
 
-      //   axios.get("/usertest").then((data) => (this.users = data.data));
-      //     console.log(users)
       this.$Progress.start();
-      var uri = "getDepatments";
+      var uri = "pabx_company";
       axios.get(uri).then(function (response) {
-        _this.departments = response.data;
+        _this.pabxs = response.data;
         console.log(response);
       });
-      this.$Progress.finish(); //pick data from controller and push it into users object
-    },
-    openModalWindow: function openModalWindow() {
-      this.editMode = false;
-      this.form.reset();
-      $("#addNew").modal("show");
-    },
-    createDepartment: function createDepartment() {
-      var _this2 = this;
-
-      this.$Progress.start();
-      this.form.post("submit_department").then(function () {
-        _this2.$toaster.success("Department created successfully.");
-
-        _this2.$Progress.finish();
-
-        $("#addNew").modal("hide");
-      })["catch"](function () {
-        console.log("Error......");
-      });
-      this.loadUsers();
-    },
-    deleteUser: function deleteUser(id) {
-      var _this3 = this;
-
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-      }).then(function (result) {
-        if (result.value) {
-          //Send Request to server
-          //this.form
-          //.get("delete_department/" + id)
-          axios.get("delete_department/" + id).then(function (response) {
-            Swal.fire("Deleted!", "User deleted successfully", "success");
-
-            _this3.loadUsers();
-
-            console.log(response);
-          })["catch"](function () {
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "Something went wrong!" //footer: "<a href>Why do I have this issue?</a>",
-
-            });
-          });
-        }
-      });
-    },
-    updateDepartment: function updateDepartment() {} //   preloader() {
-    //   $(document).ready(function () {
-    //     $(".preloader").fadeOut(1000, function () {
-    //       $(".loader").remove();
-    //     });
-    //   });
-    // },
-    // openModalWindow() {
-    //   this.editMode = false;
-    //   this.form.reset();
-    //   $("#addNew").modal("show");
-    // },
-
+      this.$Progress.finish();
+    }
   },
-  created: function created() {//this.loadUsers();
-    //this.preloader();
-    //this.$Progress.start();
-    //this.$Progress.finish();
-    //this.$toaster.success('Your toaster success message.')
-    //  Toast.fire({
-    //         icon: "success",
-    //         title: "User updated successfully",
-    //       });
-    //Swal.fire('Any fool can use a computer')
+  created: function created() {
+    this.loadPABX();
   }
 });
 
@@ -75793,7 +76078,36 @@ var render = function() {
                 _vm._v(" "),
                 _vm._m(2),
                 _vm._v(" "),
-                _vm._m(3),
+                _c(
+                  "div",
+                  { staticClass: "col-lg-3 col-md-6 col-sm-6 col-12" },
+                  [
+                    _c("div", { staticClass: "card card-statistic-1" }, [
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card-wrap" }, [
+                        _c("div", { staticClass: "padding-20" }, [
+                          _c("div", { staticClass: "text-right" }, [
+                            _c("h3", { staticClass: "font-light mb-0" }, [
+                              _c("i", {
+                                staticClass: "ti-arrow-up text-success"
+                              }),
+                              _vm._v(
+                                " " +
+                                  _vm._s(_vm.totalVehiclesCount) +
+                                  "\n                      "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "text-muted" }, [
+                              _vm._v("Total Vehicles")
+                            ])
+                          ])
+                        ])
+                      ])
+                    ])
+                  ]
+                ),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -76070,27 +76384,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-3 col-md-6 col-sm-6 col-12" }, [
-      _c("div", { staticClass: "card card-statistic-1" }, [
-        _c("div", { staticClass: "card-icon-square card-icon-bg-cyan" }, [
-          _c("i", { staticClass: "fas fa-chart-line" })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-wrap" }, [
-          _c("div", { staticClass: "padding-20" }, [
-            _c("div", { staticClass: "text-right" }, [
-              _c("h3", { staticClass: "font-light mb-0" }, [
-                _c("i", { staticClass: "ti-arrow-up text-success" }),
-                _vm._v(" {{}}\n                      ")
-              ]),
-              _vm._v(" "),
-              _c("span", { staticClass: "text-muted" }, [
-                _vm._v("Total Vehicles")
-              ])
-            ])
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "card-icon-square card-icon-bg-cyan" }, [
+      _c("i", { staticClass: "fas fa-chart-line" })
     ])
   },
   function() {
@@ -76137,6 +76432,590 @@ var staticRenderFns = [
           )
         ])
       ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/PABXAdminComponent.vue?vue&type=template&id=5e57afe0&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/PABXAdminComponent.vue?vue&type=template&id=5e57afe0& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "content-wrapper" },
+    [
+      _c("theme-preloader"),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c("section", { staticClass: "content" }, [
+        _c("div", { staticClass: "container-fluid" }, [
+          _c("div", { staticClass: "row mt-5" }, [
+            _c("div", { staticClass: "col-md-12" }, [
+              _c("div", { staticClass: "card card-light" }, [
+                _c("div", { staticClass: "card-header" }, [
+                  _c("h4", [_vm._v("PABX Table")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-header-action" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success",
+                        attrs: {
+                          "data-toggle": "modal",
+                          "data-target": "#addNew"
+                        },
+                        on: { click: _vm.openModalWindow }
+                      },
+                      [
+                        _vm._v("\n                  Add New "),
+                        _c("i", { staticClass: "fas fa-user-plus fa-fw" })
+                      ]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c("table", { staticClass: "table" }, [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.pabxs, function(pabx, index) {
+                        return _c("tr", { key: index }, [
+                          _c("td", [_vm._v(_vm._s(index + 1))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(pabx.username))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(pabx.pabx_number))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(pabx.secret_key))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(pabx.host))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "div",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: pabx.status == 1,
+                                    expression: "pabx.status == 1"
+                                  }
+                                ],
+                                staticClass: "badge badge-success"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                        Activated\n                      "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: pabx.status == 0,
+                                    expression: "pabx.status == 0"
+                                  }
+                                ],
+                                staticClass: "badge badge-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                        Deactivated\n                      "
+                                )
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("div", { staticClass: "dropdown" }, [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger dropdown-toggle",
+                                  attrs: {
+                                    type: "button",
+                                    id: "dropdownMenuButton",
+                                    "data-toggle": "dropdown",
+                                    "aria-haspopup": "true",
+                                    "aria-expanded": "false"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                          Action\n                        "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "dropdown-menu",
+                                  attrs: {
+                                    "aria-labelledby": "dropdownMenuButton"
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "show",
+                                          rawName: "v-show",
+                                          value: pabx.status == 0,
+                                          expression: "pabx.status == 0"
+                                        }
+                                      ],
+                                      staticClass: "dropdown-item has-icon",
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.activePABX(pabx._id.$oid)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-thumbs-up"
+                                      }),
+                                      _vm._v("Active")
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "show",
+                                          rawName: "v-show",
+                                          value: pabx.status == 1,
+                                          expression: "pabx.status == 1"
+                                        }
+                                      ],
+                                      staticClass: "dropdown-item has-icon",
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deactivePABX(pabx._id.$oid)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-thumbs-down"
+                                      }),
+                                      _vm._v(" Deactive")
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "dropdown-item",
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deletePABX(pabx._id.$oid)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "Delete\n                          "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            ])
+                          ])
+                        ])
+                      }),
+                      0
+                    )
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "modal fade",
+              attrs: {
+                id: "addNew",
+                tabindex: "-1",
+                role: "dialog",
+                "aria-hidden": "true"
+              }
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "modal-dialog modal-lg",
+                  attrs: { role: "document" }
+                },
+                [
+                  _c("div", { staticClass: "modal-content" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c(
+                      "form",
+                      {
+                        attrs: { enctype: "multipart/form-data" },
+                        on: {
+                          submit: function($event) {
+                            $event.preventDefault()
+                            return _vm.createPABX()
+                          }
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "modal-body" }, [
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c("label", [_vm._v("Compay")]),
+                                _vm._v(" "),
+                                _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.company,
+                                        expression: "form.company"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: { name: "company" },
+                                    on: {
+                                      change: function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          _vm.form,
+                                          "company",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      }
+                                    }
+                                  },
+                                  _vm._l(_vm.companies, function(
+                                    company,
+                                    index
+                                  ) {
+                                    return _c("option", { key: index }, [
+                                      _vm._v(_vm._s(company.company_name))
+                                    ])
+                                  }),
+                                  0
+                                )
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c("label", [_vm._v("User Name")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.username,
+                                      expression: "form.username"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "name",
+                                    id: "name",
+                                    placeholder: "Username",
+                                    required: ""
+                                  },
+                                  domProps: { value: _vm.form.username },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "username",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c("label", [_vm._v("PABX Number")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.pabx_number,
+                                      expression: "form.pabx_number"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "pabx_number",
+                                    id: "pabx_number",
+                                    placeholder: "PABX Number",
+                                    required: ""
+                                  },
+                                  domProps: { value: _vm.form.pabx_number },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "pabx_number",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c("label", [_vm._v("Secret Key")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.secret_key,
+                                      expression: "form.secret_key"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "secret_key",
+                                    id: "secret_key",
+                                    placeholder: "Secret Key",
+                                    required: ""
+                                  },
+                                  domProps: { value: _vm.form.secret_key },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "secret_key",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c("label", [_vm._v("Host")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.host,
+                                      expression: "form.host"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "host",
+                                    id: "host",
+                                    placeholder: "Host",
+                                    required: ""
+                                  },
+                                  domProps: { value: _vm.form.host },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "host",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
+                            ])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(3)
+                      ]
+                    )
+                  ])
+                ]
+              )
+            ]
+          )
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "content-header" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "row mb-2" }, [
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c("h1", { staticClass: "m-0 text-dark" }, [_vm._v("Soft PABX")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
+              _c("li", { staticClass: "breadcrumb-item" }, [
+                _c("a", { attrs: { href: "#" } }, [_vm._v("Home")])
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "breadcrumb-item active" }, [
+                _vm._v("Dashboard v2")
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Username")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("PABX Number")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Secret Key")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Host")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", [_vm._v("Add New PABX")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-danger",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("\n                  Close\n                ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-success", attrs: { type: "submit" } },
+        [_vm._v("Create")]
+      )
     ])
   }
 ]
@@ -80303,41 +81182,69 @@ var render = function() {
                 _vm._m(1),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
-                  _c(
-                    "div",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.sub_pabx == 0,
-                          expression: "sub_pabx==0"
-                        }
-                      ],
-                      staticClass: "alert alert-danger"
-                    },
-                    [
-                      _vm._v(
-                        "\n                      You need to subscribe Soft PABX feature on settings\n                    "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.sub_pabx == 1,
-                          expression: "sub_pabx==1"
-                        }
-                      ],
-                      staticClass: "table-responsive"
-                    },
-                    [_vm._m(2)]
-                  )
+                  _c("table", { staticClass: "table" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.pabxs, function(pabx, index) {
+                        return _c("tr", { key: index }, [
+                          _c("td", [_vm._v(_vm._s(index + 1))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(pabx.username))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(pabx.pabx_number))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(pabx.secret_key))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(pabx.host))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "div",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: pabx.status == 1,
+                                    expression: "pabx.status == 1"
+                                  }
+                                ],
+                                staticClass: "badge badge-success"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                        Activated\n                      "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: pabx.status == 0,
+                                    expression: "pabx.status == 0"
+                                  }
+                                ],
+                                staticClass: "badge badge-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                        Deactivated\n                      "
+                                )
+                              ]
+                            )
+                          ])
+                        ])
+                      }),
+                      0
+                    )
+                  ])
                 ])
               ])
             ])
@@ -80402,49 +81309,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "table table-sm" }, [
-      _c("thead", [
-        _c("tr", [
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("Employee Name")]),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("Employee Type")]),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("User Name")]),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("PABX Number")]),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("Secret Key")]),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("Server Name")]),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("Status")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("tbody", [
-        _c("tr", [
-          _c("td", [_vm._v("1")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("name")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("type")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("user name")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("pxbx number")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("secret key")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("server name")]),
-          _vm._v(" "),
-          _c("td", [
-            _c("div", { staticClass: "badge badge-success" }, [
-              _vm._v("Activated")
-            ])
-          ])
-        ])
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Username")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("PABX Number")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Secret Key")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Host")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Status")])
       ])
     ])
   }
@@ -105325,6 +106202,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/admin/PABXAdminComponent.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/admin/PABXAdminComponent.vue ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PABXAdminComponent_vue_vue_type_template_id_5e57afe0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PABXAdminComponent.vue?vue&type=template&id=5e57afe0& */ "./resources/js/components/admin/PABXAdminComponent.vue?vue&type=template&id=5e57afe0&");
+/* harmony import */ var _PABXAdminComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PABXAdminComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/PABXAdminComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PABXAdminComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PABXAdminComponent_vue_vue_type_template_id_5e57afe0___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PABXAdminComponent_vue_vue_type_template_id_5e57afe0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/PABXAdminComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/PABXAdminComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/admin/PABXAdminComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PABXAdminComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./PABXAdminComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/PABXAdminComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PABXAdminComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/PABXAdminComponent.vue?vue&type=template&id=5e57afe0&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/admin/PABXAdminComponent.vue?vue&type=template&id=5e57afe0& ***!
+  \*********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PABXAdminComponent_vue_vue_type_template_id_5e57afe0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./PABXAdminComponent.vue?vue&type=template&id=5e57afe0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/PABXAdminComponent.vue?vue&type=template&id=5e57afe0&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PABXAdminComponent_vue_vue_type_template_id_5e57afe0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PABXAdminComponent_vue_vue_type_template_id_5e57afe0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/admin/UsersDetailsComponent.vue":
 /*!*****************************************************************!*\
   !*** ./resources/js/components/admin/UsersDetailsComponent.vue ***!
@@ -106438,21 +107384,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_admin_UsersDetailsComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/admin/UsersDetailsComponent.vue */ "./resources/js/components/admin/UsersDetailsComponent.vue");
 /* harmony import */ var _components_admin_AdminChatComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/admin/AdminChatComponent.vue */ "./resources/js/components/admin/AdminChatComponent.vue");
 /* harmony import */ var _components_admin_AccidentHotSpotsComponent_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/admin/AccidentHotSpotsComponent.vue */ "./resources/js/components/admin/AccidentHotSpotsComponent.vue");
-/* harmony import */ var _components_auth_unauthorizedAccessComponent_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/auth/unauthorizedAccessComponent.vue */ "./resources/js/components/auth/unauthorizedAccessComponent.vue");
-/* harmony import */ var _components_client_DashboardComponent_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/client/DashboardComponent.vue */ "./resources/js/components/client/DashboardComponent.vue");
-/* harmony import */ var _components_client_DepartmentComponent_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/client/DepartmentComponent.vue */ "./resources/js/components/client/DepartmentComponent.vue");
-/* harmony import */ var _components_client_EmployeeComponent_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/client/EmployeeComponent.vue */ "./resources/js/components/client/EmployeeComponent.vue");
-/* harmony import */ var _components_client_VehicleParametersComponent_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/client/VehicleParametersComponent.vue */ "./resources/js/components/client/VehicleParametersComponent.vue");
-/* harmony import */ var _components_client_MapComponent_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/client/MapComponent.vue */ "./resources/js/components/client/MapComponent.vue");
-/* harmony import */ var _components_client_ManageVehiclesComponent_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/client/ManageVehiclesComponent.vue */ "./resources/js/components/client/ManageVehiclesComponent.vue");
-/* harmony import */ var _components_client_VehicleInspectionComponent_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/client/VehicleInspectionComponent.vue */ "./resources/js/components/client/VehicleInspectionComponent.vue");
-/* harmony import */ var _components_client_GeneralSettingsComponent_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/client/GeneralSettingsComponent.vue */ "./resources/js/components/client/GeneralSettingsComponent.vue");
-/* harmony import */ var _components_client_ProfileComponent_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/client/ProfileComponent.vue */ "./resources/js/components/client/ProfileComponent.vue");
-/* harmony import */ var _components_client_AlertSettingsComponent_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/client/AlertSettingsComponent.vue */ "./resources/js/components/client/AlertSettingsComponent.vue");
-/* harmony import */ var _components_client_PABXNumbersComponent_vue__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/client/PABXNumbersComponent.vue */ "./resources/js/components/client/PABXNumbersComponent.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var _components_admin_PABXAdminComponent_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/admin/PABXAdminComponent.vue */ "./resources/js/components/admin/PABXAdminComponent.vue");
+/* harmony import */ var _components_auth_unauthorizedAccessComponent_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/auth/unauthorizedAccessComponent.vue */ "./resources/js/components/auth/unauthorizedAccessComponent.vue");
+/* harmony import */ var _components_client_DashboardComponent_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/client/DashboardComponent.vue */ "./resources/js/components/client/DashboardComponent.vue");
+/* harmony import */ var _components_client_DepartmentComponent_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/client/DepartmentComponent.vue */ "./resources/js/components/client/DepartmentComponent.vue");
+/* harmony import */ var _components_client_EmployeeComponent_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/client/EmployeeComponent.vue */ "./resources/js/components/client/EmployeeComponent.vue");
+/* harmony import */ var _components_client_VehicleParametersComponent_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/client/VehicleParametersComponent.vue */ "./resources/js/components/client/VehicleParametersComponent.vue");
+/* harmony import */ var _components_client_MapComponent_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/client/MapComponent.vue */ "./resources/js/components/client/MapComponent.vue");
+/* harmony import */ var _components_client_ManageVehiclesComponent_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/client/ManageVehiclesComponent.vue */ "./resources/js/components/client/ManageVehiclesComponent.vue");
+/* harmony import */ var _components_client_VehicleInspectionComponent_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/client/VehicleInspectionComponent.vue */ "./resources/js/components/client/VehicleInspectionComponent.vue");
+/* harmony import */ var _components_client_GeneralSettingsComponent_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/client/GeneralSettingsComponent.vue */ "./resources/js/components/client/GeneralSettingsComponent.vue");
+/* harmony import */ var _components_client_ProfileComponent_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/client/ProfileComponent.vue */ "./resources/js/components/client/ProfileComponent.vue");
+/* harmony import */ var _components_client_AlertSettingsComponent_vue__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/client/AlertSettingsComponent.vue */ "./resources/js/components/client/AlertSettingsComponent.vue");
+/* harmony import */ var _components_client_PABXNumbersComponent_vue__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/client/PABXNumbersComponent.vue */ "./resources/js/components/client/PABXNumbersComponent.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_18__);
  //Admin
+
 
 
 
@@ -106478,12 +107426,12 @@ __webpack_require__.r(__webpack_exports__);
 var routes = [//Auth
 {
   path: '/unauthorizedAccess',
-  component: _components_auth_unauthorizedAccessComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+  component: _components_auth_unauthorizedAccessComponent_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
   name: 'unauthorizedAccess'
 }, {
   path: '/',
   beforeEnter: function beforeEnter(to, from, next) {
-    axios__WEBPACK_IMPORTED_MODULE_17___default.a.get('adminAuthenticated').then(function () {
+    axios__WEBPACK_IMPORTED_MODULE_18___default.a.get('adminAuthenticated').then(function () {
       return next({
         name: 'AdminDashboard'
       });
@@ -106499,7 +107447,7 @@ var routes = [//Auth
   component: _components_admin_AdminDashboardComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
   name: 'AdminDashboard',
   beforeEnter: function beforeEnter(to, from, next) {
-    axios__WEBPACK_IMPORTED_MODULE_17___default.a.get('adminAuthenticated').then(function () {
+    axios__WEBPACK_IMPORTED_MODULE_18___default.a.get('adminAuthenticated').then(function () {
       next();
     })["catch"](function () {
       return next({
@@ -106511,7 +107459,7 @@ var routes = [//Auth
   path: '/admin_users_details',
   component: _components_admin_UsersDetailsComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
   beforeEnter: function beforeEnter(to, from, next) {
-    axios__WEBPACK_IMPORTED_MODULE_17___default.a.get('adminAuthenticated').then(function () {
+    axios__WEBPACK_IMPORTED_MODULE_18___default.a.get('adminAuthenticated').then(function () {
       next();
     })["catch"](function () {
       return next({
@@ -106524,7 +107472,7 @@ var routes = [//Auth
   component: _components_admin_AccidentHotSpotsComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
   name: 'AccidentHotSpots',
   beforeEnter: function beforeEnter(to, from, next) {
-    axios__WEBPACK_IMPORTED_MODULE_17___default.a.get('adminAuthenticated').then(function () {
+    axios__WEBPACK_IMPORTED_MODULE_18___default.a.get('adminAuthenticated').then(function () {
       next();
     })["catch"](function () {
       return next({
@@ -106533,10 +107481,11 @@ var routes = [//Auth
     });
   }
 }, {
-  path: '/admin_chat',
-  component: _components_admin_AdminChatComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+  path: '/pabx_admin',
+  component: _components_admin_PABXAdminComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+  name: 'PABXAdminComponent',
   beforeEnter: function beforeEnter(to, from, next) {
-    axios__WEBPACK_IMPORTED_MODULE_17___default.a.get('adminAuthenticated').then(function () {
+    axios__WEBPACK_IMPORTED_MODULE_18___default.a.get('adminAuthenticated').then(function () {
       next();
     })["catch"](function () {
       return next({
@@ -106547,10 +107496,10 @@ var routes = [//Auth
 }, //Client
 {
   path: '/ClientDashboard',
-  component: _components_client_DashboardComponent_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+  component: _components_client_DashboardComponent_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
   name: 'ClientDashboard',
   beforeEnter: function beforeEnter(to, from, next) {
-    axios__WEBPACK_IMPORTED_MODULE_17___default.a.get('clientAuthenticated').then(function () {
+    axios__WEBPACK_IMPORTED_MODULE_18___default.a.get('clientAuthenticated').then(function () {
       next();
     })["catch"](function () {
       return next({
@@ -106560,9 +107509,9 @@ var routes = [//Auth
   }
 }, {
   path: '/client_department',
-  component: _components_client_DepartmentComponent_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
+  component: _components_client_DepartmentComponent_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
   beforeEnter: function beforeEnter(to, from, next) {
-    axios__WEBPACK_IMPORTED_MODULE_17___default.a.get('clientAuthenticated').then(function () {
+    axios__WEBPACK_IMPORTED_MODULE_18___default.a.get('clientAuthenticated').then(function () {
       next();
     })["catch"](function () {
       return next({
@@ -106572,9 +107521,9 @@ var routes = [//Auth
   }
 }, {
   path: '/alert_settings',
-  component: _components_client_AlertSettingsComponent_vue__WEBPACK_IMPORTED_MODULE_15__["default"],
+  component: _components_client_AlertSettingsComponent_vue__WEBPACK_IMPORTED_MODULE_16__["default"],
   beforeEnter: function beforeEnter(to, from, next) {
-    axios__WEBPACK_IMPORTED_MODULE_17___default.a.get('clientAuthenticated').then(function () {
+    axios__WEBPACK_IMPORTED_MODULE_18___default.a.get('clientAuthenticated').then(function () {
       next();
     })["catch"](function () {
       return next({
@@ -106584,39 +107533,39 @@ var routes = [//Auth
   }
 }, {
   path: '/client_employee',
-  component: _components_client_EmployeeComponent_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
+  component: _components_client_EmployeeComponent_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
 }, {
   path: '/vehicle_parameters/:id',
   name: 'vehicle_parameters',
-  component: _components_client_VehicleParametersComponent_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
+  component: _components_client_VehicleParametersComponent_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
 }, {
   path: '/test_admin_view',
   component: _components_client_TestComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
 }, //Users
 {
   path: '/employee',
-  component: _components_client_EmployeeComponent_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
+  component: _components_client_EmployeeComponent_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
 }, //Vehicles
 {
   path: '/manage_vehicles',
-  component: _components_client_ManageVehiclesComponent_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
+  component: _components_client_ManageVehiclesComponent_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
 }, {
   path: '/vehicle_inspection',
-  component: _components_client_VehicleInspectionComponent_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
+  component: _components_client_VehicleInspectionComponent_vue__WEBPACK_IMPORTED_MODULE_13__["default"]
 }, {
   path: '/PABXnumbers',
-  component: _components_client_PABXNumbersComponent_vue__WEBPACK_IMPORTED_MODULE_16__["default"]
+  component: _components_client_PABXNumbersComponent_vue__WEBPACK_IMPORTED_MODULE_17__["default"]
 }, {
   path: '/vehicle_map',
-  component: _components_client_MapComponent_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
+  component: _components_client_MapComponent_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
 }, //settings
 {
   path: '/general_settings',
-  component: _components_client_GeneralSettingsComponent_vue__WEBPACK_IMPORTED_MODULE_13__["default"]
+  component: _components_client_GeneralSettingsComponent_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
 }, //Profile
 {
   path: '/profile',
-  component: _components_client_ProfileComponent_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+  component: _components_client_ProfileComponent_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
 }];
 
 /***/ }),

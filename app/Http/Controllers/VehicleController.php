@@ -23,6 +23,11 @@ class VehicleController extends Controller
         $this->middleware('auth');
     }
 
+    public function totalVehicles()
+    {
+        return $vehicles = DB::table('vehicles')->count();
+    }
+
     public function index()
     {
         $owner_id=Auth::user()->_id;

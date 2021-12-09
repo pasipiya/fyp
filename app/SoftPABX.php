@@ -9,12 +9,13 @@ class SoftPABX extends Model
     protected $connection = 'mongodb';
     protected $table = 'soft_pabx';
     protected $fillable = [
+        'company_id',
         'employee_name',
         'employee_type',
         'username',
         'pabx_number',
         'secret_key',
-        'server_name',
+        'host',
         'status',
     ];
 }

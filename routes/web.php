@@ -54,7 +54,14 @@ Route::post('/submit_accident_hot_spots', 'AccidentHotSpotsController@submit')->
 Route::get('/submit_accident_hot_spots', 'AccidentHotSpotsController@index')->middleware('isAdmin');
 Route::get('/get_vehicle_data_admin/{id}', 'VehicleDataAcquisitionController@getVehicleDataAdmin')->middleware('isAdmin');
 Route::get('/get_companies_admin', 'CompanyController@getCompaniesAdmin')->middleware('isAdmin');
+Route::get('/total_vehicles', 'VehicleController@totalVehicles')->middleware('isAdmin');
 
+
+//PABX
+Route::get('/pabx', 'SoftPABXController@index')->middleware('isAdmin');
+Route::post('/pabx', 'SoftPABXController@create')->middleware('isAdmin');
+Route::get('/delete_pabx/{id}', 'SoftPABXController@destroy')->middleware('isAdmin');
+Route::get('/pabx_company', 'SoftPABXController@indexCompany')->middleware('isAdmin');
 
 /*Client*/
 Route::get('/company', 'CompanyController@index');
@@ -69,6 +76,7 @@ Route::post('/submit_vehicle_type', 'VehicleController@submitVehicleType');
 //Route::get('/vehicles', 'VehicleController@vehicles');
 Route::post('/submit_vehicles', 'VehicleController@submitVehicles');
 //Route::get('/vehicle_map', 'VehicleController@vehicleMap');
+Route::get('/pabx_company', 'SoftPABXController@indexCompany')->middleware('isClient');
 
 
 

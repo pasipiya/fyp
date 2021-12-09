@@ -44,39 +44,42 @@
                       </div>
                     </form>
                   </div>
-              <div class="card-body">
-                  <div v-show="sub_pabx==0" class="alert alert-danger">
-                      You need to subscribe Soft PABX feature on settings
-                    </div>
-              <div v-show="sub_pabx==1" class="table-responsive">
-                      <table class="table table-sm">
-                        <thead>
-                          <tr>
-	                          <th scope="col">#</th>
-	                          <th scope="col">Employee Name</th>
-	                          <th scope="col">Employee Type</th>
-                              <th scope="col">User Name</th>
-	                          <th scope="col">PABX Number</th>
-                              <th scope="col">Secret Key</th>
-                              <th scope="col">Server Name</th>
-                            <th scope="col">Status</th>
-	                        </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                          <td>1</td>
-                          <td>name</td>
-                          <td>type</td>
-                           <td>user name</td>
-                          <td>pxbx number</td>
-                           <td>secret key</td>
-                           <td>server name</td>
-                          <td><div class="badge badge-success">Activated</div></td>
-
-                        </tr>
-                        </tbody>
-                      </table>
-                    </div>
+            <div class="card-body">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Username</th>
+                      <th>PABX Number</th>
+                      <th>Secret Key</th>
+                      <th>Host</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(pabx, index) in pabxs" :key="index">
+                    <td>{{ index + 1 }}</td>
+                      <td>{{pabx.username}}</td>
+                      <td>{{pabx.pabx_number}}</td>
+                      <td>{{pabx.secret_key}}</td>
+                      <td>{{pabx.host}}</td>
+                      <td>
+                        <div
+                          v-show="pabx.status == 1"
+                          class="badge badge-success"
+                        >
+                          Activated
+                        </div>
+                        <div
+                          v-show="pabx.status == 0"
+                          class="badge badge-danger"
+                        >
+                          Deactivated
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
 
@@ -99,111 +102,23 @@ export default {
   //components: { preloaderComponent },
   data() {
     return {
-        sub_pabx:1,
-      editMode: false,
-      departments: [],
-      form: new Form({
-        id: "",
-        department_name: "",
-      }),
+        pabxs:[],
     };
   },
   methods: {
-    loadUsers() {
-      //   axios.get("/usertest").then((data) => (this.users = data.data));
-      //     console.log(users)
+    loadPABX() {
       this.$Progress.start();
-      let uri = "getDepatments";
+      let uri = "pabx_company";
       axios.get(uri).then((response) => {
-        this.departments = response.data;
+        this.pabxs = response.data;
         console.log(response);
       });
       this.$Progress.finish();
-
-      //pick data from controller and push it into users object
     },
-    openModalWindow() {
-      this.editMode = false;
-      this.form.reset();
-      $("#addNew").modal("show");
-    },
-    createDepartment() {
-      this.$Progress.start();
-
-      this.form
-        .post("submit_department")
-        .then(() => {
-          this.$toaster.success("Department created successfully.");
-
-          this.$Progress.finish();
-
-          $("#addNew").modal("hide");
-        })
-        .catch(() => {
-          console.log("Error......");
-        });
-
-      this.loadUsers();
-    },
-    deleteUser(id) {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-      }).then((result) => {
-        if (result.value) {
-          //Send Request to server
-          //this.form
-          //.get("delete_department/" + id)
-          axios
-            .get("delete_department/" + id)
-            .then((response) => {
-              Swal.fire("Deleted!", "User deleted successfully", "success");
-              this.loadUsers();
-              console.log(response);
-            })
-            .catch(() => {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went wrong!",
-                //footer: "<a href>Why do I have this issue?</a>",
-              });
-            });
-        }
-      });
-    },
-    updateDepartment() {},
-    //   preloader() {
-    //   $(document).ready(function () {
-    //     $(".preloader").fadeOut(1000, function () {
-    //       $(".loader").remove();
-    //     });
-    //   });
-    // },
-    // openModalWindow() {
-    //   this.editMode = false;
-    //   this.form.reset();
-    //   $("#addNew").modal("show");
-    // },
   },
 
-
   created() {
-    //this.loadUsers();
-    //this.preloader();
-    //this.$Progress.start();
-    //this.$Progress.finish();
-    //this.$toaster.success('Your toaster success message.')
-    //  Toast.fire({
-    //         icon: "success",
-    //         title: "User updated successfully",
-    //       });
-    //Swal.fire('Any fool can use a computer')
+    this.loadPABX();
   },
 };
 </script>

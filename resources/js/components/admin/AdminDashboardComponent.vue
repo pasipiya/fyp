@@ -76,7 +76,7 @@
                     <div class="padding-20">
                       <div class="text-right">
                         <h3 class="font-light mb-0">
-                          <i class="ti-arrow-up text-success"></i> {{}}
+                          <i class="ti-arrow-up text-success"></i> {{totalVehiclesCount}}
                         </h3>
                         <span class="text-muted">Total Vehicles</span>
                       </div>
@@ -256,6 +256,7 @@ export default {
   //components: { preloaderComponent },
   data() {
     return {
+        totalVehiclesCount:"",
       companies: [],
       vehicleData: [],
       window_open: false,
@@ -263,6 +264,12 @@ export default {
     };
   },
   methods: {
+      totalVehicles(){
+        let uri = "total_vehicles";
+        axios.get(uri).then((response) => {
+        this.totalVehiclesCount = response.data;
+      });
+      },
     loadCompanies() {
       this.$Progress.start();
       let uri = "get_companies_admin";
@@ -308,6 +315,7 @@ export default {
   },
 
   created() {
+      this.totalVehicles();
     this.loadCompanies();
   },
 };

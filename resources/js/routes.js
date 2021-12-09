@@ -5,7 +5,7 @@ import AdminDashboard from './components/admin/AdminDashboardComponent.vue'
 import AdminUsersDetails from './components/admin/UsersDetailsComponent.vue'
 import AdminChat from './components/admin/AdminChatComponent.vue'
 import AccidentHotSpots from './components/admin/AccidentHotSpotsComponent.vue'
-
+import PABXAdminComponent from './components/admin/PABXAdminComponent.vue'
 
 
 //unauthorizedAccess
@@ -95,8 +95,9 @@ export const routes = [
     },
 
     {
-        path: '/admin_chat',
-        component: AdminChat,
+        path: '/pabx_admin',
+        component: PABXAdminComponent,
+        name: 'PABXAdminComponent',
         beforeEnter: (to, from, next) => {
             axios.get('adminAuthenticated').then(() => {
                 next()
@@ -106,7 +107,6 @@ export const routes = [
         }
 
     },
-
 
 
 
