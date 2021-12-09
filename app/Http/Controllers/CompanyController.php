@@ -96,7 +96,9 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         try{
-            $user=User::where('_id', '=', $id)->delete();
+            //$user=User::where('_id', '=', $id)->delete();
+            //$company=Company::where('owner_id',$id)->delete();
+            $company=Company::where('_id', '=', $id)->delete();
             return true;
             }catch(\Exception $error){
                 return false;

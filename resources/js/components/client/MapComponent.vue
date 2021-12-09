@@ -42,21 +42,13 @@
                   :zoom="7"
                   style="width: 100%; height: 400px"
                 >
-                <!--
-                  <gmap-polyline
-                    v-bind:path.sync="path"
-                    v-bind:options="{ strokeColor: '#0000ff' }"
-                  >
-                  </gmap-polyline>
--->
-                    <gmap-marker
-                v-for="(m, index) in path"
-                :key="index"
-                :position="m"
-                :clickable="true"
-                :icon="icon"
+                <gmap-polyline
+                v-bind:path.sync="path"
+                v-bind:options="{ strokeColor: '#cc0000' }"
+                >
+              </gmap-polyline>
 
-              ></gmap-marker>
+
                 </gmap-map>
               </div>
             </div>
@@ -82,6 +74,7 @@ export default {
     };
   },
   methods: {
+
     loadVehicleLocation() {
       let uri = "get_vehicle_location";
       axios.get(uri).then((response) => {

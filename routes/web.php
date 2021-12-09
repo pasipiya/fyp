@@ -95,7 +95,7 @@ Route::get('/deactive_employee/{id}', 'EmployeeController@deactive');
 Route::get('/get_vehicles', 'VehicleController@index');
 Route::post('/submit_vehicle', 'VehicleController@submitVehicle');
 Route::get('/delete_vehicle/{id}', 'VehicleController@destroy');
-Route::get('/get_vehicle_location', 'VehicleDataAcquisitionController@vehicleLocation');
+Route::get('/get_vehicle_location/{id}', 'VehicleDataAcquisitionController@vehicleLocation');
 Route::get('/get_vehicles_admin/{id}', 'VehicleController@getVehicleAdmin');
 
 //Get Vehicle Data
@@ -179,3 +179,9 @@ Route::get('/pusher_map', 'VehicleDataAcquisitionController@pusherMap');
 
 
 Route::get('/logout','HomeController@logout');
+
+
+
+
+/*Test*/
+Route::post('/test_get_companies', 'CompanyController@updateAlert');

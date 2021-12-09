@@ -1,4 +1,5 @@
 import TestAdminView from './components/client/TestComponent.vue'
+import MaitainanceComponent from './components/client/MaitainanceComponent.vue'
 
 //Admin
 import AdminDashboard from './components/admin/AdminDashboardComponent.vue'
@@ -167,7 +168,7 @@ export const routes = [
     },
     {
         path: '/test_admin_view',
-        component: TestAdminView
+        component: MaitainanceComponent
     },
 
     //Users

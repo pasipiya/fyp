@@ -44,10 +44,11 @@
                             <span class="d-sm-none d-lg-inline-block"></span></a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <div class="dropdown-title">{{ Auth::user()->name }}</div>
+                            <!--
                             <router-link to="/profile" class="dropdown-item has-icon">
                                 <i class="far fa-user"></i> Profile
                             </router-link>
-
+                        -->
 
                             <div class="dropdown-divider"></div>
                             <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger">
@@ -109,25 +110,13 @@
                                 </router-link>
                             </li>
 
-
-                            <!--Settings-->
-                            <li class="dropdown">
-                                <a href="#" class="nav-link has-dropdown"><i
-                                        class="fas fa-cogs"></i><span>Settings</span></a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <router-link to="/general_settings" class="nav-link">
-                                            General Settings
-                                        </router-link>
-                                    </li>
-
-                                </ul>
-                            </li>
+                            <!--
                             <li>
                                 <router-link to="/profile" class="nav-link">
                                     <i class="fas fa-user-circle"></i><span>Profile</span>
                                 </router-link>
                             </li>
+                        -->
                         </ul>
                     @endif
 
@@ -222,12 +211,13 @@
                                     </li>
                                 </ul>
                             </li>
+                            <!--
                             <li>
                                 <router-link to="/profile" class="nav-link">
                                     <i class="fas fa-user-circle"></i><span>Profile</span>
                                 </router-link>
                             </li>
-
+                        -->
                         </ul>
 
                     @endif
@@ -252,7 +242,8 @@
 
             <footer class="main-footer">
                 <div class="footer-left">
-                    Copyright &copy; 2021 <div class="bullet"></div> Developed By <a href="#">iTecGenies</a>
+                    Copyright &copy; 2021 <div class="bullet"></div> Developed By <a href="#">Faculty of
+                        Engineering</a>
                 </div>
                 <div class="footer-right">
                 </div>

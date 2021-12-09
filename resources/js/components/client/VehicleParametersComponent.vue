@@ -69,6 +69,33 @@
             />
           </div>
         </div>
+
+
+          <div class="row mt-5">
+          <div class="col-md-12">
+            <div class="card card-light">
+              <div class="card-header">
+                <h4>Vehicle Map</h4>
+                <div class="card-header-action"></div>
+              </div>
+              <div class="card-body">
+                <gmap-map
+                  :center="{ lat: 6.07798, lng: 80.19122 }"
+                  :zoom="15"
+                  style="width: 100%; height: 400px"
+                >
+                <gmap-polyline
+                v-bind:path.sync="path"
+                v-bind:options="{ strokeColor: '#cc0000' }"
+                >
+              </gmap-polyline>
+
+                </gmap-map>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
       <!--/. container-fluid -->
     </section>
@@ -99,6 +126,7 @@ export default {
   //props: ['chartdata', 'options'],
   data() {
     return {
+           path: [],
       sound1: "sounds/industrial_alarm.mp3",
       soundurl:
         "http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3",
@@ -121,6 +149,16 @@ export default {
   },
 
   methods: {
+         loadVehicleLocation() {
+      let uri = "get_vehicle_location/" + this.vehicle_id;
+      axios.get(uri).then((response) => {
+        //console.log(response.data)
+        for (let i = 0; i < response.data.length; i++) {
+          this.path.push(response.data[i].position);
+        }
+        console.log(this.path);
+      });
+    },
     allowNotifications(sound) {
       console.log(Notification.permission);
       if (Notification.permission === "granted") {
@@ -289,8 +327,9 @@ export default {
     this.vehicle_id = this.$route.params.id;
     this.loadPerVehicleChartData();
     this.loadPerVehicleData();
-    this.obj1 = setInterval(() => this.loadPerVehicleChartData(), 2000);
-    this.obj2 = setInterval(() => this.loadPerVehicleData(), 2000);
+    this.obj1 = setInterval(() => this.loadPerVehicleChartData(), 5000);
+    this.obj2 = setInterval(() => this.loadPerVehicleData(), 5000);
+    this.loadVehicleLocation();
   },
 
   destroyed() {

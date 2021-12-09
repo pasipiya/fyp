@@ -53,15 +53,15 @@
               <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                   <div class="card-icon-square card-icon-bg-orange">
-                    <i class="fas fa-dollar-sign"></i>
+                    <i class="fas fa-phone"></i>
                   </div>
                   <div class="card-wrap">
                     <div class="padding-20">
                       <div class="text-right">
                         <h3 class="font-light mb-0">
-                          <i class="ti-arrow-up text-success"></i> $5,263
+                          <i class="ti-arrow-up text-success"></i> {{pabxs.length}}
                         </h3>
-                        <span class="text-muted">Todays Income</span>
+                        <span class="text-muted">Totatl PABX</span>
                       </div>
                     </div>
                   </div>
@@ -197,7 +197,7 @@
                           data-parent="#accordionExample"
                         >
                           <div class="card-body">
-                            <ul
+                            <ol
                               v-for="(company, index) in companies"
                               :key="index"
                             >
@@ -208,7 +208,7 @@
                                   {{ company.company_name }}
                                 </a>
                               </li>
-                            </ul>
+                            </ol>
                           </div>
                         </div>
                       </div>
@@ -257,6 +257,7 @@ export default {
   data() {
     return {
         totalVehiclesCount:"",
+        pabxs:[],
       companies: [],
       vehicleData: [],
       window_open: false,
@@ -264,6 +265,13 @@ export default {
     };
   },
   methods: {
+        loadPABX() {
+      let uri = "pabx";
+      axios.get(uri).then((response) => {
+        this.pabxs = response.data;
+        console.log(response);
+      });
+    },
       totalVehicles(){
         let uri = "total_vehicles";
         axios.get(uri).then((response) => {
@@ -284,7 +292,7 @@ export default {
       let uri = "get_vehicle_data_admin/" + companyId;
       axios.get(uri).then((response) => {
         this.vehicleData = response.data;
-        //console.log(response)
+        console.log(response)
       });
     },
     getSiteIcon(status) {
@@ -315,7 +323,8 @@ export default {
   },
 
   created() {
-      this.totalVehicles();
+    this. loadPABX();
+    this.totalVehicles();
     this.loadCompanies();
   },
 };

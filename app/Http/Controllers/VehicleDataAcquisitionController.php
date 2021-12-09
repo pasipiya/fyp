@@ -53,9 +53,12 @@ class VehicleDataAcquisitionController extends Controller
     }
 
 
-    public function vehicleLocation(){
-        $company_id=Auth::user()->_id;
-        $vehicle_id="606ec433800a0000db000558";
+    public function vehicleLocation($id){
+        $owner_id=Auth::user()->_id;
+        $company = DB::table('companies')->where('owner_id',$owner_id)->first();
+        $company_id = $company['_id']->__toString();
+        //$vehicle_id="61b0998f122a0000ff000f0f";
+        $vehicle_id=$id;
         return $vehicleData = DB::table('vehicle_data_acquisitions')->where('company_id', '=',$company_id)->where('vehicle_id', '=',$vehicle_id)->orderBy('_id', 'DESC')->take(40)->get();
     }
 
